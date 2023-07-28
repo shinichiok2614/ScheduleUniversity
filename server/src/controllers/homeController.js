@@ -7,5 +7,5 @@ let getHomePage = (req, res) => {
 };
 // export default getHomePage
 module.exports = {
-  getHomePage: getHomePage,
+  getHomePage,
 };
