@@ -10,7 +10,7 @@ insert into student(
     `address`,
     `class`,
     `army-rank`,
-    `avatar`,
+    `avatar`
 ) 
 values
 (
@@ -23,11 +23,22 @@ values
     '20',
     'ben tre',
     'cntt12',
-    `Staff sergeant`,--thuong si
+    -- thuong si
+    'Staff sergeant',
     'sadfasdf'
 );
 
-create table teacher(
+insert into class(
+    `name`,
+    `id_student`
+)
+values
+(
+    'CNTT12',
+    1    
+);
+
+insert into teacher(
     `firstName`,
     `lastName`,
     `username`,
@@ -39,7 +50,7 @@ create table teacher(
     `degree`,
     `acedemic-rank`,
     `army-rank`,
-    `avatar`,
+    `avatar`
 )
 values
 (
@@ -53,20 +64,21 @@ values
     'adsfadsfa',
     'Doctor of Philosophy',
     'Professor',
-    'Lieutenant Colonel', --Trung ta
+    -- Trung ta
+    'Lieutenant Colonel', 
     'sdfasdfasdf'
-)
+);
 
 
 
-create table subject(
+insert into TBsubject(
     `name`,
     `subject_code`,
     `credit-load`,
     `credits`,
     `credit-hours`,
     `type_exam`,
-    `id_teacher`,
+    `id_teacher`
 )
 values
 (
@@ -75,23 +87,25 @@ values
     15,
     1,
     1,
-    `vấn đáp`,
-    1,
-)
+    'vấn đáp',
+    1
+);
 
 
-create table timetable(
+insert into timetable(
     `id_subject`,
+    `id_class`,
     `room`,
     `day`,
     `classes_start`,
-    `duration`,
+    `classes_end`
 )
 values
 (
     '1',
     '1',
+    '1',
     '2023-06-28',
     '1',
-    '2',
+    '3'
 )
