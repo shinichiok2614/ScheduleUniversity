@@ -1,26 +1,19 @@
-import mysql from 'mysql2';
+const { Sequelize } = require('sequelize');
 
-const connection = mysql.createConnection({
+// Option 3: Passing parameters separately (other dialects)
+const sequelize = new Sequelize('schedule', 'root', null, {
   host: 'localhost',
-  user: 'root',
-  database: 'schedule',
+  dialect: 'mysql',
+  logging: false,
 });
-
-connection.connect((err) => {
-  if (err) {
-    console.log('Connect error', err);
-    return;
+//logging xoa select 1+1
+let connectDB = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
   }
-  console.log('Connect success');
-});
+};
 
-//test
-// connection.query(
-//     'select * from student',
-//     function (err, result, fields) {
-//         console.log(result)
-//         console.log(fields)
-//     }
-// )
-
-export default connection;
+export default connectDB;
