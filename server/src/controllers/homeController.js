@@ -6,16 +6,16 @@ let getHomePage = (req, res) => {
     message: 'hello world',
   });
 };
-let login = async (req, res) => {
-  console.log('login');
+let get = async (req, res) => {
+  console.log('get');
   const data = await db.User.findAll();
   return res.status(200).json({
     errCode: 0,
     data,
   });
 };
-// export default getHomePage
+
 module.exports = {
   getHomePage,
-  login,
+  get,
 };

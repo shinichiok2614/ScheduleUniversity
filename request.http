@@ -1,3 +1,13 @@
 GET http://localhost:8080/
 ###
 GET http://localhost:8080/get
+###
+GET http://localhost:8080/auth/login
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "asdfasdf",
+    "password":"sdfasdf"
+}
