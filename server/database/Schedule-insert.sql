@@ -9,7 +9,7 @@ insert into student(
     `age`,
     `address`,
     `class`,
-    `army-rank`,
+    `army_rank`,
     `avatar`
 ) 
 values
@@ -48,8 +48,8 @@ insert into teacher(
     `age`,
     `address`,
     `degree`,
-    `acedemic-rank`,
-    `army-rank`,
+    `acedemic_rank`,
+    `army_rank`,
     `avatar`
 )
 values
@@ -74,9 +74,9 @@ values
 insert into TBsubject(
     `name`,
     `subject_code`,
-    `credit-load`,
+    `credit_load`,
     `credits`,
-    `credit-hours`,
+    `credit_hours`,
     `type_exam`,
     `id_teacher`
 )

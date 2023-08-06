@@ -8,6 +8,29 @@ POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-    "username": "asdfasdf",
+    "username": "shinichiok2614",
+    "password": "test"
+} 
+### missing pass
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+    "username": "John1"
+} 
+### 
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+    "username": "shinichiok2614",
+    "password":"sdfasdf"
+} 
+###
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+    "username": "John1",
     "password":"sdfasdf"
 }
