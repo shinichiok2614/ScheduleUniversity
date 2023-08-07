@@ -16,7 +16,8 @@ POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-    "username": "John1"
+    "username": "test2",
+    "password": "sdfasf"
 } 
 ### 
 POST http://localhost:8080/auth/register
