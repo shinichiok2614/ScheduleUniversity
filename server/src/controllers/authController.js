@@ -3,6 +3,19 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
 const db = require('../models');
+
+const verify = async (req, res) => {
+  try {
+    console.log(await req.usesId);
+    // const user = await db.student.findById(req.userId).select('-password');
+    // if (!user) return res.status(400).json({ success: false, message: 'User not found' });
+    // res.json({ success: true, user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error2' });
+  }
+}
+
 const register = async (req, res) => {
   console.log('register');
   const { username, password } = req.body;
@@ -81,4 +94,5 @@ const login = async (req, res) => {
 module.exports = {
   login,
   register,
+  verify,
 };
