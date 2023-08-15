@@ -6,15 +6,22 @@ const db = require('../models');
 
 const verify = async (req, res) => {
   try {
-    console.log(await req.usesId);
-    // const user = await db.student.findById(req.userId).select('-password');
-    // if (!user) return res.status(400).json({ success: false, message: 'User not found' });
-    // res.json({ success: true, user });
+    const user = await db.student.findOne({
+      where: {
+        id: req.userId,
+      },
+      attributes: {
+        exclude: ['password'],
+      },
+    });
+    console.log(user);
+    if (!user) return res.status(400).json({ success: false, message: 'User not found' });
+    res.json({ success: true, user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error2' });
   }
-}
+};
 
 const register = async (req, res) => {
   console.log('register');

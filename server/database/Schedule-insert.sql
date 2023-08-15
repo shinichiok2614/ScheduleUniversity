@@ -1,5 +1,5 @@
 use schedule;
-insert into student(
+insert into students(
     `firstName`,
     `lastName`,
     `username`,
@@ -10,7 +10,9 @@ insert into student(
     `address`,
     `class`,
     `army_rank`,
-    `avatar`
+    `avatar`,
+    `createAt`,
+    `updateAt`
 ) 
 values
 (
