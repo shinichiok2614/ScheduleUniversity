@@ -3,7 +3,6 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
 const db = require('../models');
-
 const verify = async (req, res) => {
   try {
     const user = await db.student.findOne({
