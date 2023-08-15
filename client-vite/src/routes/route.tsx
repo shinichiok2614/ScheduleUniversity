@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router-dom';
-import Login from '../pages/login';
+import Login from '../pages/login/login';
 import Page404 from '../pages/result/page404';
 
 const browerRoutes: RouteObject[] = [
