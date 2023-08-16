@@ -1,15 +1,6 @@
-// const Login: React.FC = () => {
-//   return (
-//     <>
-//       <div>Login Page</div>
-//     </>
-//   );
-// };
-// export default Login;
-
-
 import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
+import ILogin from '../../types/login/auth';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 
@@ -26,7 +17,9 @@ const Login: React.FC = () => {
 
   const buttonItemLayout =
     formLayout === 'horizontal' ? { wrapperCol: { span: 14, offset: 4 } } : null;
-
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
   return (
     <Form
       {...formItemLayout}
@@ -35,6 +28,7 @@ const Login: React.FC = () => {
       initialValues={{ layout: formLayout }}
       onValuesChange={onFormLayoutChange}
       style={{ maxWidth: formLayout === 'inline' ? 'none' : 1000 }}
+      onFinish={onFinish}
     >
       <Form.Item
         label='Form Layout'
@@ -44,18 +38,29 @@ const Login: React.FC = () => {
           <Radio.Button value='horizontal'>Training Department</Radio.Button>
           <Radio.Button value='inline'>Lecturers</Radio.Button>
           <Radio.Button value='vertical'>Staff for Lecture Theatre</Radio.Button>
-          <Radio.Button value='inline'>Students</Radio.Button>
+          <Radio.Button value='student'>Students</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label='Username'>
+      <Form.Item
+        label='Username'
+        name='username'
+      >
         <Input placeholder='username' />
       </Form.Item>
-      <Form.Item label='Password'>
-        <Input placeholder='password' />
+      <Form.Item
+        label='Password'
+        name='password'
+      >
+        <Input.Password placeholder='password' />
       </Form.Item>
       <Form.Item {...buttonItemLayout}>
-        <Button type='primary'>Submit</Button>
-        <Button>Register</Button>
+        <Button
+          type='primary'
+          htmlType='submit'
+        >
+          Submit
+        </Button>
+        {/* <Button>Register</Button> */}
       </Form.Item>
     </Form>
   );
