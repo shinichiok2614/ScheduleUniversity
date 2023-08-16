@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
-import ILogin from '../../types/login/auth';
+import loginAPI from '../../apis/auth/auth';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
 
@@ -19,6 +19,7 @@ const Login: React.FC = () => {
     formLayout === 'horizontal' ? { wrapperCol: { span: 14, offset: 4 } } : null;
   const onFinish = (values: any) => {
     console.log(values);
+    loginAPI(values)
   };
   return (
     <Form
@@ -66,4 +67,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

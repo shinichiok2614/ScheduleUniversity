@@ -1,11 +1,11 @@
 import { RouteObject } from 'react-router-dom';
-import Login from '../pages/login/login';
 import Page404 from '../pages/result/page404';
+import LoginPage from '../pages/login/login';
 
 const browerRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <Login />,
+    element: <LoginPage />,
     errorElement: <Page404 />,
     },
 ];

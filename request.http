@@ -10,6 +10,14 @@ Content-Type: application/json
 {
     "username": "shinichiok2614",
     "password": "test"
+}
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "John1",
+    "password": "sdfasdf"
 } 
 ### missing pass
 POST http://localhost:8080/auth/register
