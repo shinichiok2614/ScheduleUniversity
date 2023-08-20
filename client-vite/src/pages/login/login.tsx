@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Radio } from 'antd';
+import { Button, Form, Input, Radio, notification } from 'antd';
 import loginAPI from '../../apis/auth/auth';
+import { useNavigate } from 'react-router-dom';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
 
@@ -20,6 +22,23 @@ const LoginPage: React.FC = () => {
   const onFinish = (values: any) => {
     console.log(values);
     loginAPI(values)
+      .then((res) => {
+        notification.open({
+          message: 'Welcome back ' + res.username,
+          type: 'success',
+        });
+        navigate('/');
+      })
+      .catch((err) => {
+        const { message } = err.response.data;
+        notification.open({
+          message: message,
+          type: 'error',
+        });
+      });
+  };
+  const onRegister = () => {
+    navigate('/register');
   };
   return (
     <Form
@@ -29,6 +48,7 @@ const LoginPage: React.FC = () => {
       initialValues={{ layout: formLayout }}
       onValuesChange={onFormLayoutChange}
       style={{ maxWidth: formLayout === 'inline' ? 'none' : 1000 }}
+      // style={{ maxWidth: 'none'}}
       onFinish={onFinish}
     >
       <Form.Item
@@ -37,9 +57,9 @@ const LoginPage: React.FC = () => {
       >
         <Radio.Group value={formLayout}>
           <Radio.Button value='horizontal'>Training Department</Radio.Button>
-          <Radio.Button value='inline'>Lecturers</Radio.Button>
-          <Radio.Button value='vertical'>Staff for Lecture Theatre</Radio.Button>
-          <Radio.Button value='student'>Students</Radio.Button>
+          <Radio.Button>Lecturers</Radio.Button>
+          <Radio.Button>Staff for Lecture Theatre</Radio.Button>
+          <Radio.Button>Students</Radio.Button>
         </Radio.Group>
       </Form.Item>
       <Form.Item
@@ -61,7 +81,7 @@ const LoginPage: React.FC = () => {
         >
           Submit
         </Button>
-        {/* <Button>Register</Button> */}
+        <Button onClick={onRegister}>Register</Button>
       </Form.Item>
     </Form>
   );

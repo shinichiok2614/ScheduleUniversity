@@ -24,7 +24,19 @@ const verify = async (req, res) => {
 
 const register = async (req, res) => {
   console.log('register');
-  const { username, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    username,
+    password,
+    phone,
+    email,
+    nickname,
+    address,
+    classes,
+    army_rank,
+    avatar,
+  } = req.body;
   if (!username || !password)
     return res.status(400).json({
       errCode: 2,
@@ -42,7 +54,19 @@ const register = async (req, res) => {
         message: 'User already taken',
       });
     const hashpassword = await argon2.hash(password);
-    const newStudent = new db.student({ username, password: hashpassword });
+    const newStudent = new db.student({
+      firstName,
+      lastName,
+      username,
+      password: hashpassword,
+      phone,
+      email,
+      nickname,
+      address,
+      classes,
+      army_rank,
+      avatar,
+    });
     await newStudent.save();
     return res.status(200).json({
       errCode: 0,

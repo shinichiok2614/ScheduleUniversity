@@ -35,3 +35,6 @@ npx sequelize-cli db:seed:all
 // "https://media.giphy.com/media/SaSAUwiGPsPtswfPRk/giphy.gif",
 // "https://media0.giphy.com/media/SV0LuYdSMmKEklpZKs/giphy.gif?cid=ecf05e47sizdj8hx13fnw3jkp87xzb26rr366xnpntrwfkq1&ep=v1_stickers_search&rid=giphy.gif&ct=s"
 ],
+
+nhược:
+lưu token trên localstorage->cookie mới đúng
