@@ -20,7 +20,6 @@ const LoginPage: React.FC = () => {
   const buttonItemLayout =
     formLayout === 'horizontal' ? { wrapperCol: { span: 14, offset: 4 } } : null;
   const onFinish = (values: any) => {
-    console.log(values);
     loginAPI(values)
       .then((res) => {
         notification.open({

@@ -1,0 +1,21 @@
+### get lecturer list
+GET http://localhost:8080/department/lecturerlist
+Authorization : Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTY5MjY5NDE3OX0.q4W34p821lq-btZ8nzWf7qDWIpWzhBg2KLdHTz6vqWA>
+### create lecturer
+POST http://localhost:8080/department/lecturercreate
+Authorization : Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTY5MjY5NDE3OX0.q4W34p821lq-btZ8nzWf7qDWIpWzhBg2KLdHTz6vqWA>
+
+{
+    "firstname": "Ho",
+    "lastname": "Huy Luat",
+    "username": "hohuyluat",
+    "password": "asdfsaf",
+    "phone": "123456",
+    "email": "abc@gmail.com",
+    "dateofbirth": "01011995",
+    "address": "asdf",
+    "degree": "asfsd",
+    "acedemicRank": "asf",
+    "armyRank": "asf",
+    "profilePicture": "asfsf",
+}

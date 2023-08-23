@@ -1,8 +1,13 @@
 import axios from 'axios';
 import BASE_URL from '..';
+import { getUserToken } from '../../helper/storage';
 
 const fetchlecturer = async () => {
-  const res = await axios.get(`${BASE_URL}/department/lecturerlist`);
+  const res = await axios.get(`${BASE_URL}/department/lecturerlist`, {
+    headers: {
+      Authorization: `Bearer ${getUserToken()}`,
+    }
+  });
   const resData: any = {
     list: res.data,
     status: true,
