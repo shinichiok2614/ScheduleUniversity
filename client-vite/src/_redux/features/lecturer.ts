@@ -3,17 +3,12 @@ import { ListLecturer } from '../../types/lecturer/lecturer';
 import fetchlecturer from '../../apis/lecturer';
 import { useAppSelector } from '../hook';
 
-// export interface ListLecturer{
-//   lecturers: Lecturer[];
-// }
-
 export interface LecturerState {
   lecturer: {
     loading: boolean;
     list: ListLecturer;
   };
 }
-
 const initialState: LecturerState = {
   lecturer: {
     loading: false,
@@ -29,14 +24,13 @@ const lecturerSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    // builder.addCase('GET_LECTURER_LIST' as any , (state,{payload})=>{
     builder
       .addCase(getLecturerAction.pending, (state) => {
         state.lecturer.loading = true;
       })
       .addCase(getLecturerAction.fulfilled, (state, action) => {
         state.lecturer.loading = false;
-        state.lecturer.list = action.payload.list;
+        state.lecturer.list = action.payload;
       })
       .addCase(getLecturerAction.rejected, (state) => {
         state.lecturer.loading = false;
@@ -45,6 +39,6 @@ const lecturerSlice = createSlice({
   },
 });
 
-export const LecturersSelector=()=>useAppSelector((state)=>state.lecturer.lecturer)
+export const LecturersSelector = () => useAppSelector((state) => state.lecturer.lecturer);
 
 export default lecturerSlice;

@@ -7,7 +7,8 @@ const fetchlecturer = async () => {
     list: res.data,
     status: true,
   };
-  return resData;
+//   console.log(resData.list.message);
+  return resData.list.message;
 };
 
 export default fetchlecturer;

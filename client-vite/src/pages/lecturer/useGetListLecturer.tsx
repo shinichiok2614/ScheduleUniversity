@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { LecturersSelector, getLecturerAction } from '../../_redux/features/lecturer';
 import { useAppDispatch } from '../../_redux/hook';
 import { Lecturer } from '../../types/lecturer/lecturer';
-const dispatch = useAppDispatch();
 
 function useGetListLecturer(): [boolean, Lecturer[]] {
+  const dispatch = useAppDispatch();
   const getLecturers = () => {
     dispatch(getLecturerAction());
   };
