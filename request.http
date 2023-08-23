@@ -18,15 +18,24 @@ Content-Type: application/json
 {
     "username": "John1",
     "password": "sdfasdf"
+}
+###login lecturer 
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "minhtuan",
+    "password": "abc"
 } 
-### missing pass
+### register lecturer
 POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-    "username": "test2",
-    "password": "sdfasf"
+    "username": "minhtuan",
+    "password": "abc"
 } 
+
 ### 
 POST http://localhost:8080/auth/register
 Content-Type: application/json
@@ -49,3 +58,4 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTY5MjAyMjgxNn0.6AUMXTA5ZLWjHyM1hfuZHTYY_x6QO7cTrcISbsPOQ40
 
 ###
+GET http://localhost:8080/auth/department/lecturerlist

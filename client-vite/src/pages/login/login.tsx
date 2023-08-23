@@ -10,9 +10,9 @@ const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
 
-  const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
-    setFormLayout(layout);
-  };
+  // const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
+  //   setFormLayout(layout);
+  // };
 
   const formItemLayout =
     formLayout === 'horizontal' ? { labelCol: { span: 4 }, wrapperCol: { span: 14 } } : null;
@@ -37,29 +37,29 @@ const LoginPage: React.FC = () => {
         });
       });
   };
-  const onRegister = () => {
-    navigate('/register');
-  };
+  // const onRegister = () => {
+  //   navigate('/register');
+  // };
   return (
     <Form
       {...formItemLayout}
       layout={formLayout}
       form={form}
       initialValues={{ layout: formLayout }}
-      onValuesChange={onFormLayoutChange}
+      // onValuesChange={onFormLayoutChange}
       style={{ maxWidth: formLayout === 'inline' ? 'none' : 1000 }}
       // style={{ maxWidth: 'none'}}
       onFinish={onFinish}
     >
       <Form.Item
-        label='Form Layout'
+        label='Page login for:'
         name='layout'
       >
         <Radio.Group value={formLayout}>
           <Radio.Button value='horizontal'>Training Department</Radio.Button>
-          <Radio.Button>Lecturers</Radio.Button>
+          {/* <Radio.Button>Lecturers</Radio.Button>
           <Radio.Button>Staff for Lecture Theatre</Radio.Button>
-          <Radio.Button>Students</Radio.Button>
+          <Radio.Button>Students</Radio.Button> */}
         </Radio.Group>
       </Form.Item>
       <Form.Item
@@ -81,7 +81,7 @@ const LoginPage: React.FC = () => {
         >
           Submit
         </Button>
-        <Button onClick={onRegister}>Register</Button>
+        {/* <Button onClick={onRegister}>Register</Button> */}
       </Form.Item>
     </Form>
   );

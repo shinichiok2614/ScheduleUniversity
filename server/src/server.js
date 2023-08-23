@@ -2,6 +2,7 @@ import express from 'express';
 import initRoute from './routes/route';
 import connectDB from './config/connectDB';
 import authRoute from './routes/auth';
+import departmentRoute from './routes/department'
 import cors from 'cors';
 
 let app = express();
@@ -20,6 +21,8 @@ connectDB();
 initRoute(app);
 
 app.use('/auth', authRoute);
+app.use('/department', departmentRoute);
+// app.use('/staff', authRoute);
 
 let port = 8080;
 app.listen(port, () => {

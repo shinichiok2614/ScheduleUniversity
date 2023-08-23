@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 const db = require('../models');
 const verify = async (req, res) => {
   try {
-    const user = await db.lecturer.findOne({
+    const user = await db.department.findOne({
       where: {
         id: req.userId,
       },
@@ -44,7 +44,7 @@ const register = async (req, res) => {
     });
   try {
     // const user = await db.student.findOne({
-    const user = await db.lecturer.findOne({
+    const user = await db.department.findOne({
       where: {
         username,
       },
@@ -56,7 +56,7 @@ const register = async (req, res) => {
       });
     const hashpassword = await argon2.hash(password);
     // const newStudent = new db.student({
-    const newStudent = new db.lecturer({
+    const newStudent = new db.department({
       firstName,
       lastName,
       username,
@@ -73,7 +73,7 @@ const register = async (req, res) => {
     return res.status(200).json({
       errCode: 0,
       // message: 'create student successfully',
-      message: 'create lecturer successfully',
+      message: 'create department successfully',
     });
   } catch (error) {
     console.log(error);
@@ -94,7 +94,7 @@ const login = async (req, res) => {
     });
   try {
     // const data = await db.student.findOne({
-    const data = await db.lecturer.findOne({
+    const data = await db.department.findOne({
       where: {
         username,
       },
@@ -125,9 +125,14 @@ const login = async (req, res) => {
     });
   }
 };
-
+const test = (req, res) => {
+  res.status(500).json({
+    message: 'test',
+  });
+};
 module.exports = {
   login,
   register,
   verify,
+  test,
 };

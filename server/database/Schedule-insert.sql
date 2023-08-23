@@ -16,15 +16,15 @@ insert into students(
 ) 
 values
 (
-    'minh',
-    'tuan', 
+    'huy',
+    'luat', 
     'shinichiok2614',
     '1234', 
     '0974187915', 
     'phuonghoangit2614@gmail.com',
     '20',
-    'ben tre',
-    'cntt12',
+    'ha tinh',
+    'cntt11',
     -- thuong si
     'Staff sergeant',
     'sadfasdf'
@@ -36,7 +36,7 @@ insert into class(
 )
 values
 (
-    'CNTT12',
+    'cntt11',
     1    
 );
 

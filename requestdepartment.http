@@ -1,0 +1,20 @@
+### register department
+POST http://localhost:8080/department/register
+Content-Type: application/json
+
+{
+    "username": "minhtuandepartment2",
+    "password": "abc"
+} 
+### login department
+POST http://localhost:8080/department/login
+Content-Type: application/json
+
+{
+    "username":"minhtuandepartment2",
+    "password": "abc"
+}
+### get lecturer list
+GET http://localhost:8080/department/lecturerlist
+Authorization : Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTY5MjY5NDE3OX0.q4W34p821lq-btZ8nzWf7qDWIpWzhBg2KLdHTz6vqWA>
+### create lecturer
