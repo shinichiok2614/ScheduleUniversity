@@ -1,7 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 import Page404 from '../pages/result/page404';
 import LoginPage from '../pages/login/login';
-import RegisterPage from '../pages/register/register';
 import DepartmentLayout from '../layouts/DepartmentLayout';
 import StudentLayout from '../layouts/StudentLayout';
 // import Scheduler from '../pages/Schedule/SchedulePage';
@@ -9,8 +8,14 @@ import LecturerPage from '../pages/lecturer/lecturerPage';
 import StaffPage from '../pages/staff/staffPage';
 import TheatrePage from '../pages/theatre/theatrePage';
 import LecturerCreatePage from '../pages/lecturercreate/lecturerCreate';
+import Homepage from '../pages/homepage/homepage';
 
 const browerRoutes: RouteObject[] = [
+  {
+    path: '/',
+    element: <Homepage />,
+    errorElement: <Page404 />,
+  },
   {
     path: '/login',
     element: <LoginPage />,

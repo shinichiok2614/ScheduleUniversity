@@ -23,7 +23,7 @@ const loginAPI = async (values: ILogin) => {
 };
 
 const registerAPI = (values: IRegisterRequest) => {
-  return axios.post(`${BASE_URL}/department/register`, {
+  return axios.post(`${BASE_URL}/department/lecturercreate`, {
     username: values.username,
     password: values.password,
     email: values.email,

@@ -9,5 +9,6 @@ router.post('/login', departmentController.login);
 router.post('/register', departmentController.register);
 // router.get('/lecturerlist',verifyToken, departmentlecturer.getlecturerlist);
 router.get('/lecturerlist', departmentlecturer.getlecturerlist);
+router.post('/lecturercreate', departmentlecturer.createlecturer);
 router.get('/test',verifyToken, departmentController.test)
 export default router;

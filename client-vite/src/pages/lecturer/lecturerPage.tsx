@@ -21,13 +21,13 @@ const columns: ColumnsType<Lecturer> = [
   },
   {
     title: 'First Name',
-    dataIndex: 'firstname',
+    dataIndex: 'firstName',
     key: '2',
     render: (text) => <a>{text}</a>,
   },
   {
     title: 'Last Name',
-    dataIndex: 'lastname',
+    dataIndex: 'lastName',
     key: '3',
     render: (text) => <a>{text}</a>,
   },
@@ -43,7 +43,7 @@ const columns: ColumnsType<Lecturer> = [
     render: (_, record) => (
       <Space size='middle'>
         {/* <a>Invite {record.name}</a> */}
-        <a>View</a>
+        {/* <a>View</a> */}
         <a>Edit</a>
         <a>Delete</a>
       </Space>

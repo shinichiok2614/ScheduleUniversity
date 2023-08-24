@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Radio, notification } from 'antd';
 import loginAPI from '../../apis/auth/auth';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../../apis';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //navigata is hook
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
+  const [formLayout] = useState<LayoutType>('horizontal');
 
   // const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
   //   setFormLayout(layout);
@@ -26,7 +27,7 @@ const LoginPage: React.FC = () => {
           message: 'Welcome back ' + res.username,
           type: 'success',
         });
-        navigate('/');
+        navigate(`${BASE_URL}/department/schedule`);//loi
       })
       .catch((err) => {
         const { message } = err.response.data;
