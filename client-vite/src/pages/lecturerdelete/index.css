@@ -1,0 +1,6 @@
+.center-form {
+  margin: 0 auto; 
+  /* Đặt giá trị margin left và margin right là auto */
+  text-align: center; 
+  /* Để căn giữa các phần tử bên trong form */
+}

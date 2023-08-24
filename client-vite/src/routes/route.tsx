@@ -9,6 +9,8 @@ import StaffPage from '../pages/staff/staffPage';
 import TheatrePage from '../pages/theatre/theatrePage';
 import LecturerCreatePage from '../pages/lecturercreate/lecturerCreate';
 import Homepage from '../pages/homepage/homepage';
+import LecturerEditPage from '../pages/lectureredit/lecturerEdit';
+import LecturerDeletePage from '../pages/lecturerdelete/lecturerDelete';
 
 const browerRoutes: RouteObject[] = [
   {
@@ -44,6 +46,16 @@ const browerRoutes: RouteObject[] = [
       {
         path: '/department/lecturercreate',
         element:<LecturerCreatePage/>,
+        errorElement: <Page404 />,
+      },
+      {
+        path: '/department/lectureredit/:id',
+        element:<LecturerEditPage/>,
+        errorElement: <Page404 />,
+      },
+      {
+        path: '/department/lecturerdelete/:id',
+        element:<LecturerDeletePage/>,
         errorElement: <Page404 />,
       },
       {

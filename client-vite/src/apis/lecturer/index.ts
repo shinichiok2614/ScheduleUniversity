@@ -7,13 +7,22 @@ const fetchlecturer = async () => {
   const res = await axios.get(`${BASE_URL}/department/lecturerlist`, {
     headers: {
       Authorization: `Bearer ${getUserToken()}`,
-    }
+    },
   });
   const resData: any = {
     list: res.data,
     status: true,
   };
-//   console.log(resData.list.message);
+  return resData.list.message;
+};
+const getlecturer = async (id: any) => {
+  const res = await axios.post(`${BASE_URL}/department/lecturerget`, {
+    id,
+  });
+  const resData: any = {
+    list: res.data,
+    status: true,
+  };
   return resData.list.message;
 };
 const registerlecturerAPI = (values: ILecturerRequest) => {
@@ -22,9 +31,9 @@ const registerlecturerAPI = (values: ILecturerRequest) => {
     lastName: values.lastName,
     username: values.username,
     password: values.password,
-    phone:values.phone,
+    phone: values.phone,
     email: values.email,
-    dateofbirth:values.dateofbirth,
+    dateofbirth: values.dateofbirth,
     address: values.address,
     degree: values.degree,
     acedemicRank: values.acedemicRank,
@@ -32,5 +41,29 @@ const registerlecturerAPI = (values: ILecturerRequest) => {
     profilePicture: values.profilePicture,
   });
 };
+const editlecturerAPI = (values: ILecturerRequest) => {
+  return axios.post(`${BASE_URL}/department/lectureredit`, {
+    id: values.id,
+    firstName: values.firstName,
+    lastName: values.lastName,
+    username: values.username,
+    password: values.password,
+    phone: values.phone,
+    email: values.email,
+    dateofbirth: values.dateofbirth,
+    address: values.address,
+    degree: values.degree,
+    acedemicRank: values.acedemicRank,
+    armyRank: values.armyRank,
+    profilePicture: values.profilePicture,
+  });
+};
+const deletelecturerAPI = async (values: any) => {
+  console.log(values.id);
+  const res = await axios.post(`${BASE_URL}/department/lecturerdelete`, {
+    id: values.id,
+  });
+  return console.log(res);
+};
 export default fetchlecturer;
-export { registerlecturerAPI };
+export { registerlecturerAPI, getlecturer, editlecturerAPI, deletelecturerAPI };

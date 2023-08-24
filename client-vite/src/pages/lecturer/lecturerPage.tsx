@@ -5,6 +5,8 @@ import {  UserOutlined } from '@ant-design/icons';
 import Avatar from 'antd/es/avatar/avatar';
 import useGetListLecturer from './useGetListLecturer';
 import { Lecturer } from '../../types/lecturer/lecturer';
+import { Link } from 'react-router-dom';
+import { deletelecturerAPI } from '../../apis/lecturer';
 
 const columns: ColumnsType<Lecturer> = [
   {
@@ -42,10 +44,10 @@ const columns: ColumnsType<Lecturer> = [
     key: 'action',
     render: (_, record) => (
       <Space size='middle'>
-        {/* <a>Invite {record.name}</a> */}
-        {/* <a>View</a> */}
-        <a>Edit</a>
-        <a>Delete</a>
+        <Link to={`/department/lectureredit/${record.id}`}>Edit</Link>
+        <Link to={`/department/lecturerdelete/${record.id}`}>Delete</Link>
+        {/* <Link onClick={() => deletelecturerAPI(record.id)} to={''}>Delete</Link>
+        <a onClick={() => deletelecturerAPI(record.id)}>Delete</a> */}
       </Space>
     ),
   },
