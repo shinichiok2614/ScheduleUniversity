@@ -35,6 +35,14 @@ npx sequelize-cli seed:generate --name demo-department
 //
 npx sequelize-cli db:seed:all
 
+//timetable
+npx sequelize-cli model:generate --name timetable --attributes subject:string,class:string,room:string,day:string,timestart:string,timeend:string
+//
+npx sequelize-cli db:migrate
+//
+npx sequelize-cli seed:generate --name demo-timetable
+//
+npx sequelize-cli db:seed:all
 
 200 - Everything is OK
 201 - Created Successfully
@@ -60,8 +68,8 @@ lưu token trên localstorage->cookie mới đúng
 Bây giờ mình phải là xây dựng được chương trình để đáp ứng các nd đó nhé. Việc đầu tiên em làm cho cô trang đăng nhập. Và trang dưới vai trò của pđt nhập tkb, muốn nhập tkb thì phải có các mục quản lý gv ( thêm sửa xoá gv), ql nhân viên (thêm sửa xoá nhân viên) ql giảng đường ( thêm sửa xoá giảng đường), phân lịch trực cho nhân viên ( cái này có thể làm sau)
 
 trang đăng nhập: chỉ có admin là phòng đào tạo 
-quản lý thời khoá biểu: thêm, sửa, xoá <-
 quản lý giáo viên: nt
+quản lý thời khoá biểu: thêm, sửa, xoá <-
 quản lý nhân viên: nt
 quản lý giảng đường: nt
 tìm phòng trống:

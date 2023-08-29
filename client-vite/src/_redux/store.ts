@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import lecturerSlice from './features/lecturer';
+import timetableSlice from './features/timetable';
 
 const store = configureStore({
   reducer: {
     lecturer: lecturerSlice.reducer,
+    timetable: timetableSlice.reducer,
   },
 });
 

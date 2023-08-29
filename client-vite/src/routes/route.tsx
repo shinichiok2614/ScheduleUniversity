@@ -3,7 +3,7 @@ import Page404 from '../pages/result/page404';
 import LoginPage from '../pages/login/login';
 import DepartmentLayout from '../layouts/DepartmentLayout';
 import StudentLayout from '../layouts/StudentLayout';
-// import Scheduler from '../pages/Schedule/SchedulePage';
+import Scheduler from '../pages/Schedule/SchedulePage';
 import LecturerPage from '../pages/lecturer/lecturerPage';
 import StaffPage from '../pages/staff/staffPage';
 import TheatrePage from '../pages/theatre/theatrePage';
@@ -35,7 +35,7 @@ const browerRoutes: RouteObject[] = [
     children: [
       {
         path: '/department/schedule',
-        // element: <Scheduler />,
+        element: <Scheduler />,
         errorElement: <Page404 />,
       },
       {
