@@ -10,21 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "^4.0.5",
-    "@devexpress/dx-react-scheduler": "^4.0.5",
-    "@devexpress/dx-react-scheduler-material-ui": "^4.0.5",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.5",
-    "@reduxjs/toolkit": "^1.9.5",
-    "antd": "^5.8.3",
-    "axios": "^1.4.0",
-    "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2023.2.5582.tar.gz",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0",
-    "scss": "^0.2.4"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

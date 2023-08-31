@@ -1,5 +1,5 @@
 use schedule;
-insert into students(
+insert into student(
     `firstName`,
     `lastName`,
     `username`,
@@ -9,22 +9,20 @@ insert into students(
     `age`,
     `address`,
     `class`,
-    `army_rank`,
-    `avatar`,
-    `createAt`,
-    `updateAt`
+    `army-rank`,
+    `avatar`
 ) 
 values
 (
-    'huy',
-    'luat', 
+    'minh',
+    'tuan', 
     'shinichiok2614',
     '1234', 
     '0974187915', 
     'phuonghoangit2614@gmail.com',
     '20',
-    'ha tinh',
-    'cntt11',
+    'ben tre',
+    'cntt12',
     -- thuong si
     'Staff sergeant',
     'sadfasdf'
@@ -36,7 +34,7 @@ insert into class(
 )
 values
 (
-    'cntt11',
+    'CNTT12',
     1    
 );
 
@@ -50,8 +48,8 @@ insert into teacher(
     `age`,
     `address`,
     `degree`,
-    `acedemic_rank`,
-    `army_rank`,
+    `acedemic-rank`,
+    `army-rank`,
     `avatar`
 )
 values
@@ -76,9 +74,9 @@ values
 insert into TBsubject(
     `name`,
     `subject_code`,
-    `credit_load`,
+    `credit-load`,
     `credits`,
-    `credit_hours`,
+    `credit-hours`,
     `type_exam`,
     `id_teacher`
 )

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Tạo môn học trong thời khóa biểu</title>
+    <link
+      rel="stylesheet"
+      href="/css/createtimetable.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tạo môn học trong thời khóa biểu</h1>
+      <form
+        action="/create-subject"
+        method="post"
+        class="subject-form"
+      >
+        <div class="form-group">
+          <label for="subject">Tên môn học:</label>
+          <input
+            type="text"
+            name="subject"
+            class="input-field"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="classes">Tên lớp:</label>
+          <input
+            type="text"
+            name="classes"
+            class="input-field"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="room">Số phòng học:</label>
+          <input
+            type="text"
+            name="room"
+            class="input-field"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="timestart">Thời gian bắt đầu:</label>
+          <input
+            type="text"
+            name="timestart"
+            class="input-field flatpickr"
+            data-enable-time="true"
+            data-date-format="Y-m-d H:i:S"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="timeend">Thời gian kết thúc:</label>
+          <input
+            type="text"
+            name="timeend"
+            class="input-field flatpickr"
+            data-enable-time="true"
+            data-date-format="Y-m-d H:i:S"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-submit"
+        >
+          Tạo môn học
+        </button>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      flatpickr('.flatpickr', {});
+      // Xử lý khi gửi biểu mẫu
+      const form = document.querySelector('.subject-form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData);
+        const url = '/create-a-timetable'; // Đặt đúng đường dẫn xử lý POST
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data,
+        };
+
+        try {
+          const response = await fetch(url, options);
+          const data = await response.json(); // Chỉ cần nếu trả về JSON
+          // Xử lý dữ liệu trả về (nếu cần)
+          alert(data.message);
+          // Cập nhật giao diện hoặc chuyển hướng sau khi tạo thành công
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+    </script>
+  </body>
+</html>

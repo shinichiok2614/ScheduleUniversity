@@ -1,6 +1,6 @@
 select database();
-use schedule;
 show tables;
+use schedule;
 select * from sequelizemeta;
 select * from users;
 select * from student;

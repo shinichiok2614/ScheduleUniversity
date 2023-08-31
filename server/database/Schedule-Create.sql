@@ -3,8 +3,8 @@ use schedule;
 
 create table if not exists student(
     `id` int primary key auto_increment,
-    `firstName` varchar(50),
-    `lastName` varchar(50),
+    `firstName` varchar(50) not null,
+    `lastName` varchar(50) not null,
     `username` varchar(20) not null,
     `password` varchar(20) not null,
     `phone` varchar(20),
@@ -12,7 +12,7 @@ create table if not exists student(
     `age` int,
     `address` varchar(50),
     `class` varchar(50),
-    `army_rank` varchar(50),
+    `army-rank` varchar(50),
     `avatar` varchar(50)
 ) engine=innodb;
 
@@ -24,8 +24,8 @@ create table if not exists class (
 
 create table if not exists teacher(
     `id` int primary key auto_increment,
-    `firstName` varchar(50),
-    `lastName` varchar(50),
+    `firstName` varchar(50) not null,
+    `lastName` varchar(50) not null,
     `username` varchar(20) not null,
     `password` varchar(20) not null,
     `phone` varchar(20),
@@ -35,8 +35,8 @@ create table if not exists teacher(
     -- hoc vi
     `degree` varchar(50),
     --  hoc ham
-    `acedemic_rank` varchar(50),
-    `army_rank` varchar(50),
+    `acedemic-rank` varchar(50),
+    `army-rank` varchar(50),
     `avatar` varchar(50)
 )engine=innodb;
 
@@ -45,11 +45,11 @@ create table if not exists TBsubject(
     `name` varchar(50) not null,
     `subject_code` varchar(50) not null,
     -- số tiết
-    `credit_load` int not null,
+    `credit-load` int not null,
     -- tín chỉ
     `credits` int not null,
     -- đơn vị học trình
-    `credit_hours` int not null,
+    `credit-hours` int not null,
     `type_exam` varchar(50),
     `id_teacher` int
 ) engine=innodb;
