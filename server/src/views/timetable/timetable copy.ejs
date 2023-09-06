@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Danh sách lịch học</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .button-group {
+        margin-top: 10px;
+      }
+      .edit-button,
+      .delete-button {
+        padding: 6px 10px;
+        background-color: #337ab7;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+      .delete-button {
+        background-color: #d9534f;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Danh sách lịch học</h1>
+    <table>
+      <!-- <tr>
+        <th>Tên môn học</th>
+        <th>Tên lớp</th>
+        <th>Số phòng học</th>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời gian kết thúc</th>
+        <th>Giáo viên</th>
+        <th>Thời gian</th>
+      </tr> -->
+    </table>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        fetch('/timetableindexget')
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            const table = document.querySelector('table');
+
+            data.results.forEach((item) => {
+              const row = table.insertRow();
+              // const timestartCell = row.insertCell(0);
+              const classesCell = row.insertCell(0);
+
+              const dateTimePartstimestart = item.timestart.split(' ');
+              const dateParttimestart = dateTimePartstimestart[0];
+              const timeParttimestart = dateTimePartstimestart[1];
+              const dateTimePartstimeend = item.timeend.split(' ');
+              const dateParttimeend = dateTimePartstimeend[0];
+              const timeParttimeend = dateTimePartstimeend[1];
+
+              classesCell.innerHTML = `Ngày: ${dateParttimestart}<br/>
+                                      Bắt đầu: ${timeParttimestart}<br/>
+                                      Kết thúc: ${timeParttimeend}<br/>
+                                      Môn: ${item.subject}<br/>
+                                      Lớp: ${item.classes}<br/>
+                                      Phòng: ${item.room}<br/>
+                                      GV: ${item.lecturer}<br/>`;
+              // timestartCell.innerHTML = `${timeParttimestart}<br/>${timeParttimeend}`;
+            });
+          })
+          .catch((error) => {
+            console.error('Lỗi:', error);
+          });
+      });
+    </script>
+  </body>
+</html>

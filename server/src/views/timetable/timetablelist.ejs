@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Danh sách lịch học</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .button-group {
+        margin-top: 10px;
+      }
+      .edit-button,
+      .delete-button {
+        padding: 6px 10px;
+        background-color: #337ab7;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+      .delete-button {
+        background-color: #d9534f;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Danh sách lịch học</h1>
+    <table>
+      <tr>
+        <th>Tên môn học</th>
+        <th>Tên lớp</th>
+        <th>Số phòng học</th>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời gian kết thúc</th>
+        <th>Giáo viên</th>
+      </tr>
+      <% var data = JSON.parse(datatimetable); %> <% for (let i = 0; i < data.length; i++) { %>
+      <tr>
+        <td><%= data[i].subject %></td>
+        <td><%= data[i].classes %></td>
+        <td><%= data[i].room %></td>
+        <td><%= data[i].timestart %></td>
+        <td><%= data[i].timeend %></td>
+        <td><%= data[i].lecturer %></td>
+        <td class="button-group">
+          <button
+            class="edit-button"
+            onclick="editLecturer(<%= data[i].id %>)"
+          >
+            Sửa
+          </button>
+          <button
+            class="delete-button"
+            onclick="deleteLecturer(<%= data[i].id %>)"
+          >
+            Xoá
+          </button>
+        </td>
+      </tr>
+      <% } %>
+    </table>
+
+    <script>
+      function editLecturer(id) {
+        // Chuyển hướng đến trang sửa giáo viên với ID cụ thể
+        window.location.href = '/edit-timetable/' + id;
+      }
+      function deleteLecturer(id) {
+        if (confirm('Bạn có chắc muốn xoá lịch học có ID ' + id + ' không?')) {
+          // Gửi yêu cầu xoá giáo viên đến máy chủ
+          fetch('/delete-timetable/' + id)
+            .then((response) => response.json())
+            .then((data) => {
+              alert(data.message);
+              // Reload trang sau khi xoá
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.error('Lỗi:', error);
+            });
+        }
+      }
+    </script>
+  </body>
+</html>

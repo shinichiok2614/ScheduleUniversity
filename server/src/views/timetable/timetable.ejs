@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Danh sách lịch học</title>
+     <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4; /* Màu nền cho toàn bộ trang */
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        background-color: #337ab7; /* Màu nền cho tiêu đề */
+        color: white; /* Màu chữ cho tiêu đề */
+        padding: 10px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        background-color: white; /* Màu nền cho bảng */
+        border: 1px solid #ddd; /* Viền cho bảng */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng đổ */
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .button-group {
+        margin-top: 10px;
+      }
+      .edit-button,
+      .delete-button {
+        padding: 6px 10px;
+        background-color: #337ab7;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+      .delete-button {
+        background-color: #d9534f;
+      }
+      .timetable-column {
+        margin-right: 20px;
+        background-color: #fff; /* Màu nền cho cột */
+        border: 1px solid #ddd; /* Viền cho cột */
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ cho cột */
+        padding: 10px;
+      }
+      .column-header {
+        background-color: #337ab7; /* Màu nền cho tiêu đề cột ngày */
+        color: white; /* Màu chữ cho tiêu đề cột ngày */
+        padding: 5px;
+        font-weight: bold; /* Đậm cho tiêu đề cột ngày */
+      }
+      .timetable-entry {
+        margin-top: 10px;
+        border: 1px solid #ddd; /* Viền cho mỗi mục lịch học */
+        padding: 10px;
+        background-color: #f9f9f9; /* Màu nền cho mỗi mục lịch học */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Danh sách lịch học</h1>
+    <!-- Tạo một cột cho mỗi ngày -->
+    <div id="timetable-columns" style="display: flex; overflow-x: auto;">
+      <!-- Cột sẽ được thêm vào đây thông qua JavaScript -->
+    </div>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        fetch('/timetableindexget')
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            const timetableColumns = document.getElementById('timetable-columns');
+
+            // Tạo một đối tượng Map để sắp xếp dữ liệu theo ngày
+            const timetableByDate = new Map();
+
+            data.results.forEach((item) => {
+              const dateTimePartstimestart = item.timestart.split(' ');
+              const dateParttimestart = dateTimePartstimestart[0];
+
+              // Kiểm tra xem ngày đã tồn tại trong Map chưa
+              if (!timetableByDate.has(dateParttimestart)) {
+                // Nếu không tồn tại, thêm ngày vào Map và tạo một cột mới
+                const column = document.createElement('div');
+                column.className = 'timetable-column';
+                timetableColumns.appendChild(column);
+
+                // Tạo phần tử cho tên cột ngày và gán giá trị ngày
+                const columnHeader = document.createElement('div');
+                columnHeader.className = 'column-header';
+                columnHeader.textContent = dateParttimestart;
+                column.appendChild(columnHeader);
+
+                timetableByDate.set(dateParttimestart, column);
+              }
+
+              // Thêm thông tin lịch học vào cột tương ứng
+              const column = timetableByDate.get(dateParttimestart);
+              const entry = document.createElement('div');
+              entry.className = 'timetable-entry';
+              entry.innerHTML = `Bắt đầu: ${dateTimePartstimestart[1]}<br/>
+                                  Kết thúc: ${item.timeend}<br/>
+                                  Môn: ${item.subject}<br/>
+                                  Lớp: ${item.classes}<br/>
+                                  Phòng: ${item.room}<br/>
+                                  GV: ${item.lecturer}<br/>`;
+              column.appendChild(entry);
+            });
+          })
+          .catch((error) => {
+            console.error('Lỗi:', error);
+          });
+      });
+    </script>
+  </body>
+</html>

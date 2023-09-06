@@ -29,8 +29,27 @@ let lecturelist = (req, res) => {
         lastname: row.lastName,
       });
     });
+    // console.log('data');
     // console.log(data);
     return res.render('lecturer.ejs', { dataUser: JSON.stringify(data) });
+  });
+};
+let lecturelistjson = (req, res) => {
+  console.log('lecturelist');
+  let data = [];
+  connection.query('select * from `lecturers`', function (err, results, fields) {
+    results.map((row) => {
+      data.push({
+        id: row.id,
+        email: row.email,
+        address: row.address,
+        firstname: row.firstName,
+        lastname: row.lastName,
+      });
+    });
+    // console.log('data');
+    // console.log(data);
+    return res.status(200).json({ data });
   });
 };
 let createlecturer = (req, res) => {
@@ -166,6 +185,7 @@ module.exports = {
   login,
   postlogin,
   lecturelist,
+  lecturelistjson,
   editlecturer,
   savelecturer,
   deletelecturer,
