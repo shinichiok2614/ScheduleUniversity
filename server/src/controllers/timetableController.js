@@ -3,6 +3,10 @@ import { connection } from '../config/connectDB';
 let timetableindexget = (req, res) => {
   console.log('timetableindexget');
 
+  // Lấy giá trị timestart và timeend từ tham số của yêu cầu
+  const timestart = req.query.timestart;
+  const timeend = req.query.timeend;
+
   const sql = `
     SELECT
       timetables.id,
@@ -16,18 +20,20 @@ let timetableindexget = (req, res) => {
       timetables
     JOIN
       lecturers ON timetables.id_lecturer = lecturers.id
+    WHERE
+      timetables.timestart >= ? AND timetables.timeend <= ?
+    ORDER BY
+      timetables.timestart ASC;
   `;
 
-  connection.query(sql, (err, results) => {
+  connection.query(sql, [timestart, timeend], (err, results) => {
     if (err) {
       console.error('Error querying timetable:', err);
       res.status(500).json({ error: 'Internal Server Error' });
       return;
     }
-    // console.log(results);
-    // res.json(results);
+
     return res.status(200).json({ results });
-    // return res.render('timetable/timetablelist.ejs', { datatimetable: JSON.stringify(results) });
   });
 };
 let timetablelist = (req, res) => {

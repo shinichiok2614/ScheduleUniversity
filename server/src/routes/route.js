@@ -26,7 +26,7 @@ const initRoute = (app) => {
   router.get('/edit-timetable/:id', timetable.edittimetable);
   router.post('/save-timetable/:id', timetable.savetimetable);
   router.post('/save-timetable/:id', timetable.savetimetable);
-  
+
   router.get('/timetable/', timetable.timetableindex);
   router.get('/timetableindexget/', timetable.timetableindexget);
   return app.use('/', router);
