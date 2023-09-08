@@ -143,30 +143,34 @@
           timetableByDate.get(date).push(item);
         });
 
+        // Thay đổi cách tạo dòng cho từng ngày
         timetableByDate.forEach((items, date) => {
-          // Tạo cột cho từng ngày
-          const column = document.createElement('div');
-          column.className = 'timetable-column';
-          timetableColumns.appendChild(column);
+          // Tạo dòng cho từng ngày
+          const row = document.createElement('div');
+          row.className = 'timetable-row'; // Tạo một lớp CSS mới cho dòng
 
           // Hiển thị ngày
           const columnHeader = document.createElement('div');
-          columnHeader.className = 'column-header';
+          columnHeader.className = 'row-header';
           columnHeader.textContent = date;
-          column.appendChild(columnHeader);
+          row.appendChild(columnHeader);
 
           // Hiển thị thông tin lịch học cho từng môn
           items.forEach((item) => {
             const entry = document.createElement('div');
             entry.className = 'timetable-entry';
-            entry.innerHTML = `Bắt đầu: <br/> ${item.timestart}<br/>
-                              Kết thúc:<br/> ${item.timeend}<br/>
+            entry.innerHTML = `Bắt đầu: <br/> 
+                              ${item.timestart}<br/>
+                              Kết thúc:<br/> 
+                              ${item.timeend}<br/>
                               Môn: ${item.subject}<br/>
                               Lớp: ${item.classes}<br/>
                               Phòng: ${item.room}<br/>
                               GV: ${item.lecturer}<br/>`;
-            column.appendChild(entry);
+            row.appendChild(entry);
           });
+
+          timetableColumns.appendChild(row);
         });
       });
     </script>

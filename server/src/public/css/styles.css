@@ -19,3 +19,7 @@ img {
 .btn:hover {
   background-color: #0056b3;
 }
+/* CSS để căn giữa chữ "Chào mừng" */
+.welcome-text {
+    text-align: center;
+}

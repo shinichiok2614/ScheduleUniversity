@@ -1,60 +1,59 @@
 /* /public/css/styles.css */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 50px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 /* CSS cho bảng */
 #timetable-columns {
   display: flex;
-  overflow-x: auto;
-  padding: 20px; /* Thêm khoảng cách 20px từ bên trong */
+  flex-direction: column; /* Thay đổi hướng từ ngang sang dọc */
+  padding: 20px;
 }
 
 /* Để thêm CSS cho các cột trong #timetable-columns, bạn có thể sử dụng các lớp con hoặc phần tử con tùy theo cấu trúc của trang web của bạn */
 #timetable-columns .timetable-column {
   flex: 0 0 auto;
-  margin-right: 20px; /* Khoảng cách giữa các cột */
+  margin-bottom: 20px; /* Khoảng cách giữa các cột */
   background-color: #fff; /* Màu nền của cột */
   border: 1px solid #ccc; /* Viền của cột */
   border-radius: 5px; /* Độ cong của viền */
@@ -63,7 +62,7 @@ h1 {
 
 /* CSS cho tiêu đề của cột */
 #timetable-columns .column-header {
-  background-color: #5CB85C; /* Màu nền của tiêu đề cột */
+  background-color: #5cb85c; /* Màu nền của tiêu đề cột */
   padding: 10px;
   text-align: center; /* Căn giữa nội dung tiêu đề cột */
 }
@@ -72,5 +71,24 @@ h1 {
 #timetable-columns .timetable-entry {
   padding: 10px;
   text-align: left;
-  border-top: 1px solid #ccc; /* Đường kẻ ngăn cách giữa các mục */
+  /* border-top: 1px solid #ccc;  */
+}
+
+/* Thêm CSS cho dòng */
+.timetable-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Khoảng cách giữa các dòng */
+  background-color: #fff; /* Màu nền của dòng */
+  border: 1px solid #ccc; /* Viền của dòng */
+  border-radius: 5px; /* Độ cong của viền */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho dòng */
+}
+
+/* CSS cho tiêu đề của dòng */
+.row-header {
+  /* background-color: #5CB85C; */
+  padding: 10px;
+  text-align: center; /* Căn giữa nội dung tiêu đề cột */
+  /* width: 100%;  */
 }
