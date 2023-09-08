@@ -106,12 +106,17 @@
         console.log('Nút đã được nhấn');
         const timestart = document.querySelector('input[name="timestart"]').value;
         const timeend = document.querySelector('input[name="timeend"]').value;
+        const select = document.querySelector('select[name="id_lecturer"]');
+        const selectedLecturer = select.value;
+        console.log(selectedLecturer);
 
         // Gửi yêu cầu GET với tham số timestart và timeend lên server
         const response = await fetch(
-          `/timetableindexget?timestart=${timestart}&timeend=${timeend}`,
+          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}`,
+          // `/timetableindexget?timestart=${timestart}&timeend=${timeend}`,
         );
         const data = await response.json();
+        console.log(data);
 
         // Hiển thị kết quả trả về vào #timetable-columns
         const timetableColumns = document.getElementById('timetable-columns');
@@ -126,28 +131,6 @@
           'Thứ Bảy',
         ];
         const timetableByDate = new Map();
-        // Tạo cột và hiển thị kết quả
-        // data.results.forEach((item) => {
-        //   const dateTimeStart = new Date(item.timestart);
-        //   const dayOfWeek = daysOfWeek[dateTimeStart.getDay()]; // Lấy tên thứ
-        //   // Tạo phần tử cột cho từng mục kết quả
-        //   const column = document.createElement('div');
-        //   column.className = 'timetable-column';
-        //   timetableColumns.appendChild(column);
-
-        //   // Hiển thị thông tin lịch học vào cột
-        //   const entry = document.createElement('div');
-        //   entry.className = 'timetable-entry';
-        //   entry.innerHTML = `Bắt đầu: <br/>
-        //                       ${dayOfWeek} <br/>
-        //                       ${item.timestart}<br/>
-        //                       Kết thúc:<br/> ${item.timeend}<br/>
-        //                       Môn: ${item.subject}<br/>
-        //                       Lớp: ${item.classes}<br/>
-        //                       Phòng: ${item.room}<br/>
-        //                       GV: ${item.lecturer}<br/>`;
-        //   column.appendChild(entry);
-        // });
         data.results.forEach((item) => {
           const dateTimeStart = new Date(item.timestart);
           const date = dateTimeStart.toDateString(); // Lấy ngày trong chuỗi định dạng

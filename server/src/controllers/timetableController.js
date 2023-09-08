@@ -6,8 +6,10 @@ let timetableindexget = (req, res) => {
   // Lấy giá trị timestart và timeend từ tham số của yêu cầu
   const timestart = req.query.timestart;
   const timeend = req.query.timeend;
+  const id_lecturer = req.query.id_lecturer;
+  console.log(id_lecturer);
 
-  const sql = `
+  let sql = `
     SELECT
       timetables.id,
       timetables.subject,
@@ -22,9 +24,14 @@ let timetableindexget = (req, res) => {
       lecturers ON timetables.id_lecturer = lecturers.id
     WHERE
       timetables.timestart >= ? AND timetables.timeend <= ?
-    ORDER BY
-      timetables.timestart ASC;
   `;
+
+  // Nếu id_lecturer được truyền vào, thêm điều kiện lọc theo giáo viên
+  if (id_lecturer) {
+    sql += ` AND timetables.id_lecturer = ${id_lecturer}`;
+  }
+
+  sql += ' ORDER BY timetables.timestart ASC;';
 
   connection.query(sql, [timestart, timeend], (err, results) => {
     if (err) {
