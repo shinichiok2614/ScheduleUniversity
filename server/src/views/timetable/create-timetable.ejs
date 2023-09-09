@@ -44,12 +44,13 @@
         </div>
         <div class="form-group">
           <label for="room">Số phòng học:</label>
-          <input
-            type="text"
+          <select
             name="room"
             class="input-field"
             required
-          />
+          >
+            <option value="">Chọn số phòng học</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="timestart">Thời gian bắt đầu:</label>
@@ -84,6 +85,19 @@
             <option value="">Chọn giáo viên</option>
           </select>
         </div>
+        <!-- Thêm thẻ select vào biểu mẫu -->
+        <div class="form-group">
+          <label for="staff">Chọn nhân viên:</label>
+          <select
+            name="id_staff"
+            class="input-field"
+            id="staffSelect"
+            required
+          >
+            <option value="">Chọn nhân viên</option>
+          </select>
+        </div>
+
         <button
           type="submit"
           class="btn btn-submit"
@@ -114,12 +128,50 @@
           console.log(error);
         }
       }
-      //   console.log('asdf');
-      //   const select = document.querySelector('#lecturerSelect');
-      //   select.addEventListener('focus', () => {
       populateTeachers();
-      //   });
-      //   populateTeachers();
+
+      async function populateRooms() {
+        try {
+          const response = await fetch('/roomlist'); // Đường dẫn xử lý query
+          const rooms = await response.json();
+
+          const select = document.querySelector('select[name="room"]');
+          select.innerHTML = '<option value="">Chọn số phòng học</option>';
+          rooms.forEach((room) => {
+            const option = document.createElement('option');
+            option.value = room.id;
+            option.textContent = room.name;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      // Gọi hàm populateRooms để điền dữ liệu vào dropdown số phòng học khi trang được tải
+      populateRooms();
+
+      async function populateStaff() {
+        try {
+          const response = await fetch('/staffread');
+          const staffData = await response.json();
+
+          const staffSelect = document.getElementById('staffSelect');
+          staffSelect.innerHTML = '<option value="">Chọn nhân viên</option>';
+
+          staffData.forEach((staff) => {
+            const option = document.createElement('option');
+            option.value = staff.id;
+            option.textContent = staff.firstname + ' ' + staff.lastname;
+            staffSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      populateStaff();
+
       // Xử lý khi gửi biểu mẫu
       const form = document.querySelector('.subject-form');
       form.addEventListener('submit', async (event) => {

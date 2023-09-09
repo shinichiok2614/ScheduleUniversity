@@ -3,6 +3,8 @@ import homeController from '../controllers/homeController';
 import authController from '../controllers/authController';
 import timetable from '../controllers/timetableController';
 import staffController from '../controllers/staffController';
+import roomController from '../controllers/roomController';
+
 const router = express.Router();
 const initRoute = (app) => {
   router.get('/', homeController.login);
@@ -41,6 +43,12 @@ const initRoute = (app) => {
   router.get('/staffeditget/:id', staffController.getStaffById);
   router.post('/staffsave/:id', staffController.staffsave);
   router.get('/staffdelete/:id', staffController.staffdelete);
+
+  router.get('/room', roomController.roomlistview);
+  router.get('/roomlist', roomController.roomlist);
+  router.post('/roomadd/:id', roomController.roomadd);
+  router.post('/roomsave/:id', roomController.roomupdate);
+  router.get('/roomdelete/:id', roomController.roomdelete);
 
   return app.use('/', router);
 };
