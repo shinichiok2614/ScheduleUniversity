@@ -1,96 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Chỉnh sửa thời khóa biểu</title>
-    <link rel="stylesheet" href="/css/createtimetable.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="/css/createtimetable.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+  </head>
+  <body>
     <div class="container">
-        <h1>Chỉnh sửa thời khóa biểu</h1>
-        <form action="/edit-timetable/<%= timetableId %>" method="post" class="subject-form">
-            <div class="form-group">
-                <label for="subject">Tên môn học:</label>
-                <input type="text" name="subject" class="input-field" value="<%= timetable.subject %>" required>
-            </div>
-            <div class="form-group">
-                <label for="classes">Tên lớp:</label>
-                <input type="text" name="classes" class="input-field" value="<%= timetable.classes %>" required>
-            </div>
-            <div class="form-group">
-                <label for="room">Số phòng học:</label>
-                <input type="text" name="room" class="input-field" value="<%= timetable.room %>" required>
-            </div>
-            <div class="form-group">
-                <label for="timestart">Thời gian bắt đầu:</label>
-                <input type="text" name="timestart" class="input-field flatpickr" value="<%= timetable.timestart %>" data-enable-time="true" data-date-format="Y-m-d H:i:S" required>
-            </div>
-            <div class="form-group">
-                <label for="timeend">Thời gian kết thúc:</label>
-                <input type="text" name="timeend" class="input-field flatpickr" value="<%= timetable.timeend %>" data-enable-time="true" data-date-format="Y-m-d H:i:S" required>
-            </div>
-            <div class="form-group">
-                <label for="lecturer">Giáo viên:</label>
-                <select name="id_lecturer" class="input-field" id="lecturerSelect" required>
-                    <option value="">Chọn giáo viên</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-submit">Lưu thay đổi</button>
-        </form>
+      <h1>Chỉnh sửa thời khóa biểu</h1>
+      <form
+        action="/edit-timetable/<%= timetableId %>"
+        method="post"
+        class="subject-form"
+      >
+        <div class="form-group">
+          <label for="subject">Tên môn học:</label>
+          <input
+            type="text"
+            name="subject"
+            class="input-field"
+            value="<%= timetable.subject %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="classes">Tên lớp:</label>
+          <input
+            type="text"
+            name="classes"
+            class="input-field"
+            value="<%= timetable.classes %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="room">Số phòng học:</label>
+          <select
+            name="room"
+            class="input-field"
+            required
+          >
+            <option value="">Chọn số phòng học</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="timestart">Thời gian bắt đầu:</label>
+          <input
+            type="text"
+            name="timestart"
+            class="input-field flatpickr"
+            value="<%= timetable.timestart %>"
+            data-enable-time="true"
+            data-date-format="Y-m-d H:i:S"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="timeend">Thời gian kết thúc:</label>
+          <input
+            type="text"
+            name="timeend"
+            class="input-field flatpickr"
+            value="<%= timetable.timeend %>"
+            data-enable-time="true"
+            data-date-format="Y-m-d H:i:S"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="lecturer">Giáo viên:</label>
+          <select
+            name="id_lecturer"
+            class="input-field"
+            id="lecturerSelect"
+            required
+          >
+            <option value="">Chọn giáo viên</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="staff">Chọn nhân viên:</label>
+          <select
+            name="id_staff"
+            class="input-field"
+            id="staffSelect"
+            required
+          >
+            <option value="">Chọn nhân viên</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-submit"
+        >
+          Lưu thay đổi
+        </button>
+      </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        flatpickr('.flatpickr', {});
-        
-        async function populateTeachers() {
-            try {
-                const response = await fetch('/lecturelistjson'); // Đường dẫn xử lý query
-                const teachers = await response.json();
+      flatpickr('.flatpickr', {});
 
-                const select = document.querySelector('select[name="id_lecturer"]');
-                select.innerHTML = '<option value="">Chọn giáo viên</option>';
-                teachers.data.forEach((teacher) => {
-                    const option = document.createElement('option');
-                    option.value = teacher.id;
-                    option.textContent = teacher.firstname + ' ' + teacher.lastname;
-                    select.appendChild(option);
-                });
-            } catch (error) {
-                console.log(error);
-            }
+      async function populateTeachers() {
+        try {
+          const response = await fetch('/lecturelistjson'); // Đường dẫn xử lý query
+          const teachers = await response.json();
+
+          const select = document.querySelector('select[name="id_lecturer"]');
+          select.innerHTML = '<option value="">Chọn giáo viên</option>';
+          teachers.data.forEach((teacher) => {
+            const option = document.createElement('option');
+            option.value = teacher.id;
+            option.textContent = teacher.firstname + ' ' + teacher.lastname;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.log(error);
         }
+      }
 
-        populateTeachers();
+      populateTeachers();
 
-        // Xử lý khi gửi biểu mẫu
-        const form = document.querySelector('.subject-form');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
+      async function populateRooms() {
+        try {
+          const response = await fetch('/roomlist'); // Đường dẫn xử lý query
+          const rooms = await response.json();
 
-            const formData = new FormData(form);
-            const data = new URLSearchParams(formData);
-            const url = '/save-timetable/<%= timetableId %>'; // Đặt đúng đường dẫn xử lý POST
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: data,
-            };
+          const select = document.querySelector('select[name="room"]');
+          select.innerHTML = '<option value="">Chọn số phòng học</option>';
+          rooms.forEach((room) => {
+            const option = document.createElement('option');
+            option.value = room.id;
+            option.textContent = room.name;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
-            try {
-                const response = await fetch(url, options);
-                const responseData = await response.json(); // Chỉ cần nếu trả về JSON
-                // Xử lý dữ liệu trả về (nếu cần)
-                alert(responseData.message);
-                // Cập nhật giao diện hoặc chuyển hướng sau khi chỉnh sửa thành công
-            } catch (error) {
-                alert(error.message);
-            }
-        });
+      // Gọi hàm populateRooms để điền dữ liệu vào dropdown số phòng học khi trang được tải
+      populateRooms();
+
+      async function populateStaff() {
+        try {
+          const response = await fetch('/staffread');
+          const staffData = await response.json();
+
+          const staffSelect = document.getElementById('staffSelect');
+          staffSelect.innerHTML = '<option value="">Chọn nhân viên</option>';
+
+          staffData.forEach((staff) => {
+            const option = document.createElement('option');
+            option.value = staff.id;
+            option.textContent = staff.firstname + ' ' + staff.lastname;
+            staffSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      populateStaff();
+
+      // Xử lý khi gửi biểu mẫu
+      const form = document.querySelector('.subject-form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData);
+        const url = '/save-timetable/<%= timetableId %>'; // Đặt đúng đường dẫn xử lý POST
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data,
+        };
+
+        try {
+          const response = await fetch(url, options);
+          const responseData = await response.json(); // Chỉ cần nếu trả về JSON
+          // Xử lý dữ liệu trả về (nếu cần)
+          alert(responseData.message);
+          // Cập nhật giao diện hoặc chuyển hướng sau khi chỉnh sửa thành công
+        } catch (error) {
+          alert(error.message);
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

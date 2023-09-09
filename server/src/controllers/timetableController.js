@@ -14,14 +14,19 @@ let timetableindexget = (req, res) => {
       timetables.id,
       timetables.subject,
       timetables.classes,
-      timetables.room,
+      room.name AS room,
       timetables.timestart,
       timetables.timeend,
-      CONCAT(lecturers.firstname, ' ', lecturers.lastname) AS lecturer
+      CONCAT(lecturers.firstname, ' ', lecturers.lastname) AS lecturer,
+      CONCAT(staff.firstname, ' ', staff.lastname) AS staff
     FROM
       timetables
     JOIN
       lecturers ON timetables.id_lecturer = lecturers.id
+    JOIN
+      room ON timetables.room = room.id
+    JOIN
+      staff ON timetables.id_staff = staff.id
     WHERE
       timetables.timestart >= ? AND timetables.timeend <= ?
   `;
@@ -45,21 +50,25 @@ let timetableindexget = (req, res) => {
 };
 let timetablelist = (req, res) => {
   console.log('timetablelist');
-
   const sql = `
-    SELECT
-      timetables.id,
-      timetables.subject,
-      timetables.classes,
-      timetables.room,
-      timetables.timestart,
-      timetables.timeend,
-      CONCAT(lecturers.firstname, ' ', lecturers.lastname) AS lecturer
-    FROM
-      timetables
-    JOIN
-      lecturers ON timetables.id_lecturer = lecturers.id
-  `;
+  SELECT
+    timetables.id,
+    timetables.subject,
+    timetables.classes,
+    room.name AS room,
+    timetables.timestart,
+    timetables.timeend,
+    CONCAT(lecturers.firstname, ' ', lecturers.lastname) AS lecturer,
+    CONCAT(staff.firstname, ' ', staff.lastname) AS staff
+  FROM
+    timetables
+  JOIN
+    lecturers ON timetables.id_lecturer = lecturers.id
+  JOIN
+    room ON timetables.room = room.id
+  JOIN
+    staff ON timetables.id_staff = staff.id
+`;
 
   connection.query(sql, (err, results) => {
     if (err) {
@@ -67,7 +76,7 @@ let timetablelist = (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
       return;
     }
-    // console.log(results);
+    console.log(results);
     // res.json(results);
     return res.render('timetable/timetablelist.ejs', { datatimetable: JSON.stringify(results) });
   });
@@ -82,11 +91,21 @@ let createtimetable = (req, res) => {
 };
 let createAtimetable = (req, res) => {
   console.log('createAtimetable');
-  const { subject, classes, room, timestart, timeend, id_lecturer } = req.body;
+  const { subject, classes, room, timestart, timeend, id_lecturer, id_staff } = req.body;
 
   const sql =
-    'INSERT INTO timetables (subject, classes, room, timestart, timeend, id_lecturer, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [subject, classes, room, timestart, timeend, id_lecturer, new Date(), new Date()];
+    'INSERT INTO timetables (subject, classes, room, timestart, timeend, id_lecturer,id_staff, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?,?, ?, ?)';
+  const values = [
+    subject,
+    classes,
+    room,
+    timestart,
+    timeend,
+    id_lecturer,
+    id_staff,
+    new Date(),
+    new Date(),
+  ];
 
   connection.query(sql, values, (err, result) => {
     console.log('err', err);
@@ -135,14 +154,14 @@ let savetimetable = (req, res) => {
   console.log('savetimetable');
   const timetableId = req.params.id;
   console.log(timetableId);
-  const { subject, classes, room, timestart, timeend, id_lecturer } = req.body;
+  const { subject, classes, room, timestart, timeend, id_lecturer, id_staff } = req.body;
   console.log(req.body);
   // Thực hiện cập nhật thông tin thời khóa biểu trong cơ sở dữ liệu
   const sql =
-    'UPDATE timetables SET subject=?, classes=?, room=?, timestart=?, timeend=?, id_lecturer=? WHERE id=?';
+    'UPDATE timetables SET subject=?, classes=?, room=?, timestart=?, timeend=?, id_lecturer=?,id_staff=? WHERE id=?';
   connection.query(
     sql,
-    [subject, classes, room, timestart, timeend, id_lecturer, timetableId],
+    [subject, classes, room, timestart, timeend, id_lecturer, id_staff, timetableId],
     (err, results) => {
       if (err) {
         console.error('Error updating timetable:', err);

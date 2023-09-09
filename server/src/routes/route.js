@@ -4,6 +4,7 @@ import authController from '../controllers/authController';
 import timetable from '../controllers/timetableController';
 import staffController from '../controllers/staffController';
 import roomController from '../controllers/roomController';
+import emptyroomController from '../controllers/emptyroomController';
 
 const router = express.Router();
 const initRoute = (app) => {
@@ -49,6 +50,8 @@ const initRoute = (app) => {
   router.post('/roomadd/:id', roomController.roomadd);
   router.post('/roomsave/:id', roomController.roomupdate);
   router.get('/roomdelete/:id', roomController.roomdelete);
+
+  router.get('/emptyroom', emptyroomController.emptyroom);
 
   return app.use('/', router);
 };

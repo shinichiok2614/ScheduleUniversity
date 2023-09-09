@@ -1,4 +1,15 @@
 /* /public/css/styles.css */
+/* Thêm CSS cho dòng khi hover */
+/* Thêm CSS cho dòng khi hover */
+.timetable-row {
+  transition: transform 0.2s, background-color 0.2s; /* Thêm hiệu ứng chuyển đổi cho transform và background-color */
+}
+
+.timetable-row:hover {
+  transform: scale(1.05); /* Phóng to khi hover */
+  background-color: #f0f0f0; /* Thay đổi màu nền khi hover */
+  cursor: pointer; /* Thay đổi con trỏ chuột khi hover */
+}
 
 body {
   font-family: Arial, sans-serif;
@@ -95,8 +106,18 @@ h1 {
 
 /* CSS cho tiêu đề của dòng */
 .row-header {
-  /* background-color: #5CB85C; */
+  background-color: #5cb85c; /* Màu nền của phần tiêu đề */
   padding: 10px;
-  text-align: center; /* Căn giữa nội dung tiêu đề cột */
-  /* width: 100%;  */
+  text-align: center; /* Căn giữa nội dung phần tiêu đề */
+  color: #fff; /* Màu chữ của phần tiêu đề */
+}
+
+/* CSS cho các cột trong bảng */
+#timetable-columns .timetable-column {
+  flex: 0 0 auto;
+  margin-bottom: 20px; /* Khoảng cách giữa các cột */
+  background-color: #fff; /* Màu nền của cột */
+  border: 1px solid #ccc; /* Viền của cột với độ rộng là 1px */
+  border-radius: 5px; /* Độ cong của viền */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho cột */
 }

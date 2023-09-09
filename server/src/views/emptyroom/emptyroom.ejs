@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách phòng trống</title>
+    <!-- <link rel="stylesheet" href="/css/emptyroom.css"> -->
+    <style>
+        /* emptyroom.css */
+
+/* Định dạng tiêu đề trang */
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Định dạng danh sách các phòng */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+li:hover {
+    transform: scale(1.05);
+    background-color: #fff;
+}
+
+/* Định dạng dòng chẵn */
+li:nth-child(odd) {
+    background-color: #a797a5;
+    color: #fff;
+}
+
+/* Định dạng dòng lẻ */
+li:nth-child(even) {
+    background-color: #fff;
+    color: #333;
+}
+/* Định dạng liên kết trở lại trang trước */
+.back-link {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.back-link:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Danh sách phòng trống</h1>
+        <ul>
+            <% if (rooms.length > 0) { %>
+                <% rooms.forEach(function(room) { %>
+                    <li><%= room.name %></li>
+                <% }); %>
+            <% } else { %>
+                <p>Không có phòng trống.</p>
+            <% } %>
+        </ul>
+    </div>
+</body>
+</html>

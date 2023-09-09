@@ -47,6 +47,7 @@
         <th>Thời gian bắt đầu</th>
         <th>Thời gian kết thúc</th>
         <th>Giáo viên</th>
+        <th>Nhân viên</th>
       </tr>
       <% var data = JSON.parse(datatimetable); %> <% for (let i = 0; i < data.length; i++) { %>
       <tr>
@@ -56,6 +57,7 @@
         <td><%= data[i].timestart %></td>
         <td><%= data[i].timeend %></td>
         <td><%= data[i].lecturer %></td>
+        <td><%= data[i].staff %></td>
         <td class="button-group">
           <button
             class="edit-button"

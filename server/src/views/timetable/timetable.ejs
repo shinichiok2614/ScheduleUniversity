@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <html lang="en">
+  <!DOCTYPE html>
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -19,7 +19,11 @@
   <body>
     <div class="container">
       <div class="form-group">
-        <label for="classes" class="form-label">Tên lớp:</label>
+        <label
+          for="classes"
+          class="form-label"
+          >Tên lớp:</label
+        >
         <input
           type="text"
           name="classes"
@@ -27,15 +31,25 @@
         />
       </div>
       <div class="form-group">
-        <label for="room" class="form-label">Số phòng học:</label>
-        <input
-          type="text"
+        <label
+          for="room"
+          class="form-label"
+          >Số phòng học:</label
+        >
+        <select
           name="room"
           class="input-field"
-        />
+          required
+        >
+          <option value="">Chọn số phòng học</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="timestart" class="form-label">Thời gian bắt đầu:</label>
+        <label
+          for="timestart"
+          class="form-label"
+          >Thời gian bắt đầu:</label
+        >
         <input
           type="text"
           name="timestart"
@@ -45,7 +59,11 @@
         />
       </div>
       <div class="form-group">
-        <label for="timeend" class="form-label">Thời gian kết thúc:</label>
+        <label
+          for="timeend"
+          class="form-label"
+          >Thời gian kết thúc:</label
+        >
         <input
           type="text"
           name="timeend"
@@ -55,7 +73,11 @@
         />
       </div>
       <div class="form-group">
-        <label for="lecturer" class="form-label">Giáo viên:</label>
+        <label
+          for="lecturer"
+          class="form-label"
+          >Giáo viên:</label
+        >
         <select
           name="id_lecturer"
           class="input-field"
@@ -64,12 +86,35 @@
           <option value="">Chọn giáo viên</option>
         </select>
       </div>
+      <div class="form-group">
+        <label
+          for="staff"
+          class="form-label"
+          >Nhân viên:</label
+        >
+        <select
+          name="id_staff"
+          class="input-field"
+          id="staffSelect"
+          required
+        >
+          <option value="">Chọn nhân viên</option>
+        </select>
+      </div>
+
       <button
         type="button"
         id="customButton"
         class="btn btn-submit"
       >
         Go
+      </button>
+      <button
+        type="button"
+        id="emptyRoomButton"
+        class="btn btn-submit"
+      >
+        Tìm phòng trống
       </button>
 
       <div
@@ -99,6 +144,49 @@
         }
       }
       populateTeachers();
+
+      async function populateRooms() {
+        try {
+          const response = await fetch('/roomlist'); // Đường dẫn xử lý query
+          const rooms = await response.json();
+
+          const select = document.querySelector('select[name="room"]');
+          select.innerHTML = '<option value="">Chọn số phòng học</option>';
+          rooms.forEach((room) => {
+            const option = document.createElement('option');
+            option.value = room.id;
+            option.textContent = room.name;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      // Gọi hàm populateRooms để điền dữ liệu vào dropdown số phòng học khi trang được tải
+      populateRooms();
+
+      async function populateStaff() {
+        try {
+          const response = await fetch('/staffread');
+          const staffData = await response.json();
+
+          const staffSelect = document.getElementById('staffSelect');
+          staffSelect.innerHTML = '<option value="">Chọn nhân viên</option>';
+
+          staffData.forEach((staff) => {
+            const option = document.createElement('option');
+            option.value = staff.id;
+            option.textContent = staff.firstname + ' ' + staff.lastname;
+            staffSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      populateStaff();
+
       const customButton = document.getElementById('customButton');
 
       customButton.addEventListener('click', async () => {
@@ -157,6 +245,7 @@
 
           // Hiển thị thông tin lịch học cho từng môn
           items.forEach((item) => {
+            console.log(item);
             const entry = document.createElement('div');
             entry.className = 'timetable-entry';
             entry.innerHTML = `Bắt đầu: <br/> 
@@ -166,11 +255,49 @@
                               Môn: ${item.subject}<br/>
                               Lớp: ${item.classes}<br/>
                               Phòng: ${item.room}<br/>
-                              GV: ${item.lecturer}<br/>`;
+                              GV: ${item.lecturer}<br/>
+                              NV: ${item.staff}<br/>`;
             row.appendChild(entry);
           });
 
           timetableColumns.appendChild(row);
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Tạo một hàm để gọi thao tác khi trang tải xong
+        async function loadInitialData() {
+          // Lấy các phần tử cần thao tác
+          const timestartInput = document.querySelector('input[name="timestart"]');
+          const timeendInput = document.querySelector('input[name="timeend"]');
+          // const lecturerSelect = document.querySelector('select[name="id_lecturer"]');
+          const customButton = document.getElementById('customButton');
+
+          // Mô phỏng việc điền dữ liệu vào các phần tử trang
+          timestartInput.value = '2023-09-10'; // Thay đổi giá trị mặc định cho timestart
+          timeendInput.value = '2023-09-17'; // Thay đổi giá trị mặc định cho timeend
+          // lecturerSelect.value = '1'; // Chọn một giáo viên mặc định (điều này phải có giá trị trong dropdown)
+
+          // Tạo sự kiện click tự động cho nút "Go" để mô phỏng việc nhấn nút
+          const clickEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+          });
+          customButton.dispatchEvent(clickEvent);
+        }
+
+        // Gọi hàm loadInitialData khi trang được tải
+        loadInitialData();
+
+        const customButton = document.getElementById('customButton');
+        const emptyRoomButton = document.getElementById('emptyRoomButton');
+
+        // ...
+
+        emptyRoomButton.addEventListener('click', () => {
+          // Chuyển hướng đến /emptyroom khi nút "Tìm phòng trống" được nhấn
+          window.location.href = '/emptyroom';
         });
       });
     </script>
