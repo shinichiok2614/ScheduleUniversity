@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Thêm nhân viên</title>
+  </head>
+  <body>
+    <h1>Thêm nhân viên</h1>
+    <form id="addStaffForm">
+      <label for="firstname">Tên:</label>
+      <input
+        type="text"
+        id="firstname"
+        name="firstname"
+        required
+      /><br />
+
+      <label for="lastname">Họ:</label>
+      <input
+        type="text"
+        id="lastname"
+        name="lastname"
+        required
+      /><br />
+
+      <label for="username">Tên đăng nhập:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+      /><br />
+
+      <label for="password">Mật khẩu:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+      /><br />
+
+      <input
+        type="submit"
+        value="Thêm"
+      />
+    </form>
+
+    <script>
+      const addStaffForm = document.getElementById('addStaffForm');
+
+      addStaffForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(addStaffForm);
+        const data = new URLSearchParams(formData);
+        fetch('/staffinsert', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // if (data.success) {
+            //     alert('Thêm nhân viên thành công.');
+            //     addStaffForm.reset(); // Xóa các trường nhập liệu
+            // } else {
+            //     alert('Lỗi trong quá trình thêm nhân viên.');
+            // }
+            alert(data);
+          });
+        //   .catch((error) => {
+        //     console.error(error);
+        //     // alert('Lỗi trong quá trình thực hiện yêu cầu.');
+        //   });
+      });
+    </script>
+  </body>
+</html>

@@ -2,6 +2,7 @@ import express from 'express';
 import homeController from '../controllers/homeController';
 import authController from '../controllers/authController';
 import timetable from '../controllers/timetableController';
+import staffController from '../controllers/staffController';
 const router = express.Router();
 const initRoute = (app) => {
   router.get('/', homeController.login);
@@ -29,6 +30,18 @@ const initRoute = (app) => {
 
   router.get('/timetable/', timetable.timetableindex);
   router.get('/timetableindexget/', timetable.timetableindexget);
+
+  router.get('/staff', staffController.staffreadview);
+  router.get('/staffread', staffController.staffread);
+
+  router.get('/staffinsertview', staffController.staffinsertview);
+  router.post('/staffinsert', staffController.staffinsert);
+
+  router.get('/staffeditview/:id', staffController.staffeditview);
+  router.get('/staffeditget/:id', staffController.getStaffById);
+  router.post('/staffsave/:id', staffController.staffsave);
+  router.get('/staffdelete/:id', staffController.staffdelete);
+
   return app.use('/', router);
 };
 export default initRoute;

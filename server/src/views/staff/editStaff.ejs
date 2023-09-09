@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sửa thông tin nhân viên</title>
+  </head>
+  <body>
+    <h1>Sửa thông tin nhân viên</h1>
+    <form id="editStaffForm">
+      <input
+        type="hidden"
+        id="staffId"
+        value="<%= id %>"
+      />
+
+      <label for="firstname">Tên:</label>
+      <input
+        type="text"
+        id="firstname"
+        name="firstname"
+        required
+      /><br />
+
+      <label for="lastname">Họ:</label>
+      <input
+        type="text"
+        id="lastname"
+        name="lastname"
+        required
+      /><br />
+
+      <label for="username">Tên đăng nhập:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+      /><br />
+
+      <label for="password">Mật khẩu:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+      /><br />
+
+      <input
+        type="submit"
+        value="Sửa"
+      />
+    </form>
+
+    <script>
+      const editStaffForm = document.getElementById('editStaffForm');
+      const staffId = document.getElementById('staffId').value;
+
+      // Hàm để lấy dữ liệu từ /staffeditget/:id
+      function fetchData() {
+        fetch(`/staffeditget/${staffId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Điền dữ liệu từ dữ liệu nhận được vào các trường nhập liệu
+            document.getElementById('firstname').value = data.firstname;
+            document.getElementById('lastname').value = data.lastname;
+            document.getElementById('username').value = data.username;
+            document.getElementById('password').value = data.password;
+          })
+          .catch((error) => console.error(error));
+      }
+
+      // Gọi hàm để lấy dữ liệu khi trang web được tải
+      fetchData();
+
+      editStaffForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(editStaffForm);
+        const data = new URLSearchParams(formData);
+
+        // Gửi yêu cầu PUT hoặc POST để lưu sự thay đổi vào cơ sở dữ liệu
+        fetch(`/staffsave/${staffId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              alert(data);
+            } else {
+              alert(data);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert('Lỗi trong quá trình thực hiện yêu cầu.');
+          });
+      });
+    </script>
+  </body>
+</html>

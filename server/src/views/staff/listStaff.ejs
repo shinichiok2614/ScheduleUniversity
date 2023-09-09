@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danh sách nhân viên</title>
+</head>
+<body>
+    <h1>Danh sách nhân viên</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Họ</th>
+                <th>Tên đăng nhập</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="staffTableBody">
+            <!-- Dữ liệu nhân viên sẽ được cập nhật ở đây -->
+        </tbody>
+    </table>
+    <a href="/staffinsertview">Thêm nhân viên</a>
+
+    <script>
+        // Hàm để cập nhật dữ liệu nhân viên từ máy chủ
+        function updateStaffTable() {
+            fetch('/staffread') // Gửi yêu cầu GET đến máy chủ để lấy dữ liệu nhân viên
+                .then(response => response.json())
+                .then(data => {
+                    const staffTableBody = document.getElementById('staffTableBody');
+                    staffTableBody.innerHTML = ''; // Xóa dữ liệu cũ trong bảng
+
+                    data.forEach(staff => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${staff.id}</td>
+                            <td>${staff.firstname}</td>
+                            <td>${staff.lastname}</td>
+                            <td>${staff.username}</td>
+                            <td>
+                                <a href="/staffeditview/${staff.id}">Sửa</a>
+                                <a href="#" onclick="deleteStaff(${staff.id});">Xoá</a>
+                            </td>
+                        `;
+                        staffTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+
+        // Hàm để xoá nhân viên bằng cách gửi yêu cầu DELETE
+        function deleteStaff(id) {
+            if (confirm('Bạn có chắc chắn muốn xoá nhân viên này không?')) {
+                fetch(`/staffdelete/${id}`, {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        alert(data);
+                        updateStaffTable(); // Cập nhật bảng sau khi xoá
+                    } else {
+                        alert(data);
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        }
+
+        // Gọi hàm cập nhật dữ liệu khi trang web được tải
+        updateStaffTable();
+    </script>
+</body>
+</html>

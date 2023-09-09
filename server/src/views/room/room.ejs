@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danh sách phòng</title>
+</head>
+<body>
+    <h1>Danh sách phòng</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên phòng</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="roomTableBody">
+            <!-- Dữ liệu phòng sẽ được cập nhật ở đây -->
+        </tbody>
+    </table>
+
+    <!-- Form thêm/sửa phòng -->
+    <form id="roomForm">
+        <input type="hidden" id="roomId" name="id">
+        <label for="roomName">Tên phòng:</label>
+        <input type="text" id="roomName" name="name" required>
+        <button type="submit">Lưu</button>
+    </form>
+
+    <button id="addRoomButton">Thêm phòng mới</button>
+
+    <script>
+        // Hàm để cập nhật dữ liệu phòng từ máy chủ
+        function updateRoomTable() {
+            fetch('/roomread') // Gửi yêu cầu GET đến máy chủ để lấy dữ liệu phòng
+                .then(response => response.json())
+                .then(data => {
+                    const roomTableBody = document.getElementById('roomTableBody');
+                    roomTableBody.innerHTML = ''; // Xóa dữ liệu cũ trong bảng
+
+                    data.forEach(room => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${room.id}</td>
+                            <td>${room.name}</td>
+                            <td>
+                                <button class="editButton" onclick="editRoom(${room.id}, '${room.name}')">Sửa</button>
+                                <button class="deleteButton" onclick="deleteRoom(${room.id})">Xoá</button>
+                            </td>
+                        `;
+                        roomTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+
+        // Gọi hàm cập nhật dữ liệu khi trang web được tải
+        updateRoomTable();
+
+        // Hàm để mở form sửa phòng
+        function editRoom(id, name) {
+            document.getElementById('roomId').value = id;
+            document.getElementById('roomName').value = name;
+        }
+
+        // Hàm để xoá phòng bằng fetch
+        function deleteRoom(id) {
+            if (confirm('Bạn có chắc chắn muốn xoá phòng này không?')) {
+                fetch(`/roomdelete/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Xoá phòng thành công.');
+                        updateRoomTable(); // Cập nhật bảng sau khi xoá
+                    } else {
+                        alert('Lỗi trong quá trình xoá phòng.');
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        }
+
+        // Hàm để gửi yêu cầu thêm hoặc sửa phòng bằng fetch
+        document.getElementById('roomForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(document.getElementById('roomForm'));
+            const id = formData.get('id');
+            const name = formData.get('name');
+
+            let url = '/roomadd';
+            let method = 'POST';
+
+            if (id) {
+                url = `/roomsave/${id}`;
+                method = 'PUT';
+            }
+
+            fetch(url, {
+                method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Lưu phòng thành công.');
+                    document.getElementById('roomForm').reset(); // Xóa các trường nhập liệu
+                    updateRoomTable(); // Cập nhật bảng sau khi thêm/sửa
+                } else {
+                    alert('Lỗi trong quá trình lưu phòng.');
+                }
+            })
+            .catch(error => console.error(error));
+        });
+
+        // Xử lý nút "Thêm phòng mới"
+        document.getElementById('addRoomButton').addEventListener('click', () => {
+            document.getElementById('roomId').value = '';
+            document.getElementById('roomName').value = '';
+        });
+    </script>
+</body>
+</html>

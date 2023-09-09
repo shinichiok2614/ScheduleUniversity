@@ -43,6 +43,14 @@ h1 {
 .btn:hover {
   background-color: #0056b3;
 }
+
+.form-label {
+  display: inline-block;
+  width: 150px; /* Độ rộng tối đa của label */
+  text-align: right; /* Căn lề phải của label để cân bằng khoảng trống */
+  margin-right: 20px; /* Khoảng cách bên phải của label và input */
+}
+
 /* CSS cho bảng */
 #timetable-columns {
   display: flex;
