@@ -7,7 +7,11 @@ let timetableindexget = (req, res) => {
   const timestart = req.query.timestart;
   const timeend = req.query.timeend;
   const id_lecturer = req.query.id_lecturer;
+  const id_staff = req.query.id_staff;
+  console.log(timestart);
+  console.log(timeend);
   console.log(id_lecturer);
+  console.log(id_staff);
 
   let sql = `
     SELECT
@@ -35,9 +39,12 @@ let timetableindexget = (req, res) => {
   if (id_lecturer) {
     sql += ` AND timetables.id_lecturer = ${id_lecturer}`;
   }
+  if (id_staff) {
+    sql += ` AND timetables.id_staff = ${id_staff}`;
+  }
 
   sql += ' ORDER BY timetables.timestart ASC;';
-
+  console.log(sql);
   connection.query(sql, [timestart, timeend], (err, results) => {
     if (err) {
       console.error('Error querying timetable:', err);

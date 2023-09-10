@@ -195,12 +195,15 @@
         const timestart = document.querySelector('input[name="timestart"]').value;
         const timeend = document.querySelector('input[name="timeend"]').value;
         const select = document.querySelector('select[name="id_lecturer"]');
+        const select2 = document.querySelector('select[name="id_staff"]');
         const selectedLecturer = select.value;
+        const selectedStaff = select2.value;
         console.log(selectedLecturer);
+        console.log(selectedStaff);
 
         // Gửi yêu cầu GET với tham số timestart và timeend lên server
         const response = await fetch(
-          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}`,
+          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}`,
           // `/timetableindexget?timestart=${timestart}&timeend=${timeend}`,
         );
         const data = await response.json();
