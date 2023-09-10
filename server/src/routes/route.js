@@ -8,9 +8,9 @@ import emptyroomController from '../controllers/emptyroomController';
 
 const router = express.Router();
 const initRoute = (app) => {
-  router.get('/', homeController.login);
+  router.get('/login', homeController.login);
   router.get('/homepage', homeController.getHomePage);
-  router.post('/login', homeController.postlogin);
+  // router.post('/login', homeController.postlogin);
 
   router.get('/lecturelist', homeController.lecturelist);
   router.get('/lecturelistjson', homeController.lecturelistjson);
@@ -31,7 +31,7 @@ const initRoute = (app) => {
   router.post('/save-timetable/:id', timetable.savetimetable);
   router.post('/save-timetable/:id', timetable.savetimetable);
 
-  router.get('/timetable/', timetable.timetableindex);
+  router.get('/', timetable.timetableindex);
   router.get('/timetableindexget/', timetable.timetableindexget);
 
   router.get('/staff', staffController.staffreadview);

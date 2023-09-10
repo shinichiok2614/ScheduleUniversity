@@ -26,7 +26,16 @@ body {
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-
+.container-image {
+  max-width: 900px;
+  margin: 0 auto;
+  /* padding: 50px; */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  display: flex;
+}
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -58,8 +67,18 @@ h1 {
 .form-label {
   display: inline-block;
   width: 150px; /* Độ rộng tối đa của label */
-  text-align: right; /* Căn lề phải của label để cân bằng khoảng trống */
+  text-align: center; /* Căn lề phải của label để cân bằng khoảng trống */
   margin-right: 20px; /* Khoảng cách bên phải của label và input */
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.form-label:hover {
+  color: red; /* Màu mới khi di chuột qua */
+  cursor: pointer; /* Biểu tượng con trỏ khi di chuột qua */
+  transform: translateY(-5px); /* Di chuyển nhãn lên trên */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Bóng mờ */
 }
 
 /* CSS cho bảng */
@@ -120,4 +139,50 @@ h1 {
   border: 1px solid #ccc; /* Viền của cột với độ rộng là 1px */
   border-radius: 5px; /* Độ cong của viền */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho cột */
+}
+
+.container-menu {
+  max-width: 900px;
+  margin: 0 auto;
+  /* padding: 50px; */
+  background-color: #ffffff;
+  /* border-radius: 10px; */
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+  /* display: flex; */
+}
+
+/* Thiết lập màu nền và các kiểu dáng cho thanh menu */
+.menu {
+  background-color: #0074d9; /* Màu nền xanh */
+  padding: 10px 0; /* Khoảng cách giữa nút và viền thanh menu */
+  display: flex; /* Sử dụng Flexbox để căn giữa */
+  justify-content: space-between; /* Căn giữa theo chiều ngang và đặt khoảng cách giữa các phần tử */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+/* Loại bỏ kiểu dáng mặc định của danh sách ul và các mục li */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Thiết lập kiểu dáng cho các liên kết (a) trong menu */
+.menu ul li {
+  display: inline; /* Để liên kết hiển thị trên cùng một dòng */
+}
+
+.menu ul li.right {
+  margin-left: auto; /* Đẩy nút "Đăng nhập" sang bên phải */
+}
+
+.menu ul li a {
+  text-decoration: none; /* Loại bỏ gạch chân mặc định cho liên kết */
+  color: white; /* Màu chữ trắng */
+  font-weight: bold; /* Đậm */
+}
+
+/* Hiệu ứng khi di chuột qua nút */
+.menu ul li a:hover {
+  text-decoration: underline; /* Gạch chân khi di chuột qua */
 }

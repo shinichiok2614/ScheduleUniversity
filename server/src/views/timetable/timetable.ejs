@@ -17,8 +17,25 @@
     />
   </head>
   <body>
+    <!-- <div class="container"> -->
+    <img
+      src="/image/cover.png"
+      alt=""
+      class="container-image"
+    />
+    <!-- </div> -->
+
+    <div class="container-menu">
+      <nav class="menu">
+        <ul>
+          <li><a href="/homepage">Trang chủ</a></li>
+          <li class="right"><a href="/login">Đăng nhập</a></li>
+        </ul>
+      </nav>
+    </div>
+
     <div class="container">
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label
           for="classes"
           class="form-label"
@@ -29,7 +46,7 @@
           name="classes"
           class="input-field"
         />
-      </div>
+      </div> -->
       <div class="form-group">
         <label
           for="room"
@@ -196,14 +213,17 @@
         const timeend = document.querySelector('input[name="timeend"]').value;
         const select = document.querySelector('select[name="id_lecturer"]');
         const select2 = document.querySelector('select[name="id_staff"]');
+        const select3 = document.querySelector('select[name="room"]');
         const selectedLecturer = select.value;
         const selectedStaff = select2.value;
+        const selectedRoom = select3.value;
         console.log(selectedLecturer);
         console.log(selectedStaff);
+        console.log(selectedRoom);
 
         // Gửi yêu cầu GET với tham số timestart và timeend lên server
         const response = await fetch(
-          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}`,
+          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}&room=${selectedRoom}`,
           // `/timetableindexget?timestart=${timestart}&timeend=${timeend}`,
         );
         const data = await response.json();
@@ -277,7 +297,7 @@
           const customButton = document.getElementById('customButton');
 
           // Mô phỏng việc điền dữ liệu vào các phần tử trang
-          timestartInput.value = '2023-09-10'; // Thay đổi giá trị mặc định cho timestart
+          timestartInput.value = '2023-09-01'; // Thay đổi giá trị mặc định cho timestart
           timeendInput.value = '2023-09-17'; // Thay đổi giá trị mặc định cho timeend
           // lecturerSelect.value = '1'; // Chọn một giáo viên mặc định (điều này phải có giá trị trong dropdown)
 
