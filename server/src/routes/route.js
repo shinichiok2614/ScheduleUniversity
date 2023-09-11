@@ -10,7 +10,7 @@ const router = express.Router();
 const initRoute = (app) => {
   router.get('/login', homeController.login);
   router.get('/homepage', homeController.getHomePage);
-  // router.post('/login', homeController.postlogin);
+  router.post('/loginpost', homeController.postlogin);
 
   router.get('/lecturelist', homeController.lecturelist);
   router.get('/lecturelistjson', homeController.lecturelistjson);

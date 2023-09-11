@@ -1,5 +1,7 @@
+require('dotenv').config();
 import db from '../models';
 import { connection } from '../config/connectDB';
+const jwt = require('jsonwebtoken');
 let getHomePage = (req, res) => {
   console.log('gethomepage');
   return res.render('index.ejs');
@@ -141,44 +143,66 @@ const postlogin = async (req, res) => {
   console.log('postlogin');
   console.log(req.params);
   const { username, password } = req.body;
-  // console.log(req.payload);
   console.log(username, password);
-  // if (!username || !password)
-  //   return res.status(400).json({
-  //     errCode: 2,
-  //     message: 'Missing username and/or password',
-  //   });
-  // try {
-  //   const data = await db.department.findOne({
-  //     where: {
-  //       username,
-  //     },h
-  //   });
-  //   if (!data)
-  //     return res.status(400).json({
-  //       errCode: 3,
-  //       message: 'Incorrect username',
-  //     });
-  //   const passwordconfirm = await argon2.verify(data.password, password);
-  //   if (!passwordconfirm)
-  //     return res.status(401).json({
-  //       errCode: 0,
-  //       message: 'Incorrect password',
-  //     });
+  if (!username || !password)
+    return res.status(400).json({
+      errCode: 2,
+      message: 'Missing username and/or password',
+    });
+  try {
+    // const data = await db.department.findOne({
+    //   where: {
+    //     username,
+    //   },
+    // });
+    // console.log(data);
 
-  //   const accesstoken = jwt.sign({ userID: data.id }, process.env.ACCESS_TOKEN_SECRET);
-  //   res.status(200).json({
-  //     errCode: 0,
-  //     message: 'User logged in successfully',
-  //     accesstoken,
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json({
-  //     errCode: 1,
-  //     message: 'Internal server error',
-  //   });
-  // }
+    const sql = 'SELECT * FROM departments WHERE username = ?';
+    connection.query(sql, [username], (err, results) => {
+      if (results.length === 0)
+        return res.status(401).json({ status: false, message: 'Username incorrect' });
+      else {
+        const sql = 'SELECT * FROM departments WHERE username = ? AND password =?';
+        connection.query(sql, [username, password], (err, results) => {
+          if (results.length === 0)
+            return res.status(401).json({ status: false, message: 'Password incorrect' });
+          else {
+            const accesstoken = jwt.sign(
+              { userID: results[0].id },
+              process.env.ACCESS_TOKEN_SECRET,
+            );
+            console.log(accesstoken);
+            return res.status(200).json({ status: true, message: 'Success', accesstoken });
+          }
+        });
+      }
+    });
+
+    // if (!data)
+    //   return res.status(400).json({
+    //     errCode: 3,
+    //     message: 'Incorrect username',
+    //   });
+    // const passwordconfirm = await argon2.verify(data.password, password);
+    // if (!passwordconfirm)
+    //   return res.status(401).json({
+    //     errCode: 0,
+    //     message: 'Incorrect password',
+    //   });
+
+    // const accesstoken = jwt.sign({ userID: data.id }, process.env.ACCESS_TOKEN_SECRET);
+    // res.status(200).json({
+    //   errCode: 0,
+    //   message: 'User logged in successfully',
+    //   accesstoken,
+    // });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      errCode: 1,
+      message: 'Internal server error',
+    });
+  }
 };
 module.exports = {
   getHomePage,

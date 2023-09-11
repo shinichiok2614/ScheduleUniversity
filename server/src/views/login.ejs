@@ -28,9 +28,8 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       }
 
-
-      input[type="text"],
-      input[type="password"] {
+      input[type='text'],
+      input[type='password'] {
         width: 100%;
         padding: 10px;
         margin-bottom: 15px;
@@ -38,7 +37,7 @@
         border-radius: 3px;
       }
 
-      input[type="submit"] {
+      input[type='submit'] {
         background-color: #007bff;
         color: #fff;
         border: none;
@@ -47,19 +46,72 @@
         cursor: pointer;
       }
 
-      input[type="submit"]:hover {
+      input[type='submit']:hover {
         background-color: #0056b3;
       }
     </style>
   </head>
   <body>
     <h1>Đăng nhập</h1>
-    <form method="post" action="/login">
+    <form id="loginForm">
       <label for="username">Tên đăng nhập:</label><br />
-      <input type="text" id="username" name="username" required /><br />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        required
+      /><br />
       <label for="password">Mật khẩu:</label><br />
-      <input type="password" id="password" name="password" required /><br /><br />
-      <input type="submit" value="Đăng nhập" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        required
+      /><br /><br />
+      <input
+        type="submit"
+        value="Đăng nhập"
+      />
     </form>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngăn chặn việc gửi form mặc định
+
+        // Lấy dữ liệu từ form
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Tạo object dữ liệu để gửi qua POST request
+        const data = {
+          username: username,
+          password: password,
+        };
+
+        // Gửi POST request
+        fetch('/loginpost', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.text())
+          .then((response) => {
+            const jsonString = response;
+            const jsonObject = JSON.parse(jsonString);
+            const { status, accesstoken } = jsonObject;
+            if (status === true) {
+              alert('Đăng nhập thành công, chuyển đến homepage');
+              // window.location.href = '/homepage';
+              localStorage.setItem('token', accesstoken);
+            } else alert('Đăng nhập không thành công');
+          })
+          // .then((res)=>console.log(res))
+          .catch((error) => {
+            console.log(error);
+            alert('Lỗi trong quá trình đăng nhập');
+          });
+      });
+    </script>
   </body>
 </html>
