@@ -3,7 +3,19 @@ h1 {
   border: 1px solid green;
 }
 img {
-  width:100px
+  width: 100px;
+}
+.logout-btn {
+  /* display: inline-block;
+  justify-content: flex-end;  */
+  color: white; /* White text color for the button */
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #007bff; /* Blue color for the button */
+}
+.logout-btn:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
 }
 .btn {
   display: inline-block;
@@ -21,5 +33,5 @@ img {
 }
 /* CSS để căn giữa chữ "Chào mừng" */
 .welcome-text {
-    text-align: center;
+  text-align: center;
 }

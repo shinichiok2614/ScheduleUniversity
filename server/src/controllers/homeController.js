@@ -107,11 +107,12 @@ let editlecturer = (req, res) => {
 let deletelecturer = (req, res) => {
   console.log('deletelecturer');
   const lecturerId = req.params.id;
+  console.log(lecturerId);
 
   connection.query('DELETE FROM lecturers WHERE id = ?', [lecturerId], (err, results) => {
     if (err) {
       console.error('Lỗi khi truy vấn cơ sở dữ liệu:', err);
-      return res.status(500).json({ message: 'Lỗi khi truy vấn cơ sở dữ liệu' });
+      return res.status(500).json({ message: 'Lỗi id này đã được sử dụng ở bảng khác' });
     }
 
     res.json({ message: 'Xoá giáo viên thành công' });

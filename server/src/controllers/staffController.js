@@ -96,6 +96,7 @@ let staffinsertview = (req, res) => {
 };
 
 let staffeditview = (req, res) => {
+  const id = req.params.id;
   console.log('staffeditview');
   return res.render('staff/editStaff.ejs', { id });
 };

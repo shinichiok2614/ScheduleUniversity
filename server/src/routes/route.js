@@ -5,6 +5,7 @@ import timetable from '../controllers/timetableController';
 import staffController from '../controllers/staffController';
 import roomController from '../controllers/roomController';
 import emptyroomController from '../controllers/emptyroomController';
+import verifyToken from '../middleware/auth';
 
 const router = express.Router();
 const initRoute = (app) => {
@@ -16,20 +17,19 @@ const initRoute = (app) => {
   router.get('/lecturelistjson', homeController.lecturelistjson);
 
   router.get('/editlecturer/:id', homeController.editlecturer);
-  router.post('/save-lecturer/:id', homeController.savelecturer);
+  router.post('/save-lecturer/:id', verifyToken, homeController.savelecturer);
 
   router.get('/create-lecturer', homeController.createlecturer);
-  router.post('/create-a-lecturer', homeController.createAlecturer);
-  router.delete('/delete-lecturer/:id', homeController.deletelecturer);
+  router.post('/create-a-lecturer', verifyToken, homeController.createAlecturer);
+  router.post('/delete-lecturer/:id', verifyToken, homeController.deletelecturer);
 
   router.get('/timetablelist', timetable.timetablelist);
 
   router.get('/create-timetable/', timetable.createtimetable);
-  router.post('/create-a-timetable/', timetable.createAtimetable);
+  router.post('/create-a-timetable/', verifyToken, timetable.createAtimetable);
 
   router.get('/edit-timetable/:id', timetable.edittimetable);
-  router.post('/save-timetable/:id', timetable.savetimetable);
-  router.post('/save-timetable/:id', timetable.savetimetable);
+  router.post('/save-timetable/:id', verifyToken, timetable.savetimetable);
 
   router.get('/', timetable.timetableindex);
   router.get('/timetableindexget/', timetable.timetableindexget);
@@ -38,12 +38,12 @@ const initRoute = (app) => {
   router.get('/staffread', staffController.staffread);
 
   router.get('/staffinsertview', staffController.staffinsertview);
-  router.post('/staffinsert', staffController.staffinsert);
+  router.post('/staffinsert',verifyToken, staffController.staffinsert);
 
   router.get('/staffeditview/:id', staffController.staffeditview);
   router.get('/staffeditget/:id', staffController.getStaffById);
-  router.post('/staffsave/:id', staffController.staffsave);
-  router.get('/staffdelete/:id', staffController.staffdelete);
+  router.post('/staffsave/:id', verifyToken, staffController.staffsave);
+  router.post('/staffdelete/:id', verifyToken, staffController.staffdelete);
 
   router.get('/room', roomController.roomlistview);
   router.get('/roomlist', roomController.roomlist);

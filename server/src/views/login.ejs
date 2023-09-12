@@ -102,7 +102,7 @@
             const { status, accesstoken } = jsonObject;
             if (status === true) {
               alert('Đăng nhập thành công, chuyển đến homepage');
-              // window.location.href = '/homepage';
+              window.location.href = '/homepage';
               localStorage.setItem('token', accesstoken);
             } else alert('Đăng nhập không thành công');
           })

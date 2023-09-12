@@ -77,22 +77,27 @@
         window.location.href = '/editlecturer/' + id;
       }
       function deleteLecturer(id) {
+        console.log('deletebutton');
         if (confirm('Bạn có chắc muốn xoá giáo viên có ID ' + id + ' không?')) {
+          console.log(localStorage.getItem('token'));
           // Gửi yêu cầu xoá giáo viên đến máy chủ
-          fetch('/delete-lecturer/' + id, {
-            method: 'DELETE',
+          // fetch('/delete-lecturer/' + id, {
+          fetch(`/delete-lecturer/` + id, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
           })
             .then((response) => response.json())
             .then((data) => {
-              console.log(data.message);
+              alert(data.message);
               // Reload trang sau khi xoá
               window.location.reload();
             })
             .catch((error) => {
-              console.error('Lỗi:', error);
+              alert('Lỗi:', error);
             });
         }
-
       }
     </script>
   </body>

@@ -61,7 +61,7 @@
         border-radius: 3px;
         cursor: pointer;
       }
-      
+
       input[type='submit']:hover {
         background-color: #0056b3;
       }
@@ -121,6 +121,7 @@
         fetch('/staffinsert', {
           method: 'POST',
           headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: data,

@@ -18,6 +18,14 @@
       alt=""
       style="width: 1204px; height: 260px"
     />
+    <div class="header">
+      <a
+        href="/"
+        class="logout-btn"
+        id="logout-button"
+        >Đăng xuất</a
+      >
+    </div>
     <h1 class="welcome-text">Chào mừng đến với trang Admin</h1>
     <a
       href="/lecturelist"
@@ -59,5 +67,15 @@
       class="btn"
       >Danh sách phòng học</a
     >
+    <script>
+      // Get a reference to the logout button
+      const logoutButton = document.getElementById('logout-button');
+
+      // Add a click event listener to the logout button
+      logoutButton.addEventListener('click', function () {
+        // Clear the token from localStorage (replace 'your_token_key' with the actual key)
+        localStorage.removeItem('token');
+      });
+    </script>
   </body>
 </html>

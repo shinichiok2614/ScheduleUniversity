@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Danh sách nhân viên</title>
     <style>
-        /* Đây là phần CSS để tạo giao diện trang web đẹp hơn */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
+      /* Đây là phần CSS để tạo giao diện trang web đẹp hơn */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
 
-        h1 {
-            text-align: center;
-            background-color: #0836eb;
-            color: #fff;
-            padding: 10px;
-        }
+      h1 {
+        text-align: center;
+        background-color: #0836eb;
+        color: #fff;
+        padding: 10px;
+      }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
 
-        table, th, td {
-            border: 1px solid #ccc;
-        }
+      table,
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
 
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+      }
 
-        th {
-            background-color: #0836eb;
-            color: #fff;
-        }
+      th {
+        background-color: #0836eb;
+        color: #fff;
+      }
 
-        a {
-            text-decoration: none;
-            color: #007bff;
-            margin-right: 10px;
-        }
+      a {
+        text-decoration: none;
+        color: #007bff;
+        margin-right: 10px;
+      }
 
-        a:hover {
-            text-decoration: underline;
-        }
+      a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Danh sách nhân viên</h1>
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên</th>
-                <th>Họ</th>
-                <th>Tên đăng nhập</th>
-                <th>Thao tác</th>
-            </tr>
-        </thead>
-        <tbody id="staffTableBody">
-            <!-- Dữ liệu nhân viên sẽ được cập nhật ở đây -->
-        </tbody>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên</th>
+          <th>Họ</th>
+          <th>Tên đăng nhập</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="staffTableBody">
+        <!-- Dữ liệu nhân viên sẽ được cập nhật ở đây -->
+      </tbody>
     </table>
-    <a href="/staffinsertview">Thêm nhân viên</a>
+    <!-- <a href="/staffinsertview">Thêm nhân viên</a> -->
 
     <script>
-        // Hàm để cập nhật dữ liệu nhân viên từ máy chủ
-        function updateStaffTable() {
-            fetch('/staffread') // Gửi yêu cầu GET đến máy chủ để lấy dữ liệu nhân viên
-                .then(response => response.json())
-                .then(data => {
-                    const staffTableBody = document.getElementById('staffTableBody');
-                    staffTableBody.innerHTML = ''; // Xóa dữ liệu cũ trong bảng
+      // Hàm để cập nhật dữ liệu nhân viên từ máy chủ
+      function updateStaffTable() {
+        fetch('/staffread') // Gửi yêu cầu GET đến máy chủ để lấy dữ liệu nhân viên
+          .then((response) => response.json())
+          .then((data) => {
+            const staffTableBody = document.getElementById('staffTableBody');
+            staffTableBody.innerHTML = ''; // Xóa dữ liệu cũ trong bảng
 
-                    data.forEach(staff => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
+            data.forEach((staff) => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
                             <td>${staff.id}</td>
                             <td>${staff.firstname}</td>
                             <td>${staff.lastname}</td>
@@ -88,33 +91,36 @@
                                 <a href="#" onclick="deleteStaff(${staff.id});">Xoá</a>
                             </td>
                         `;
-                        staffTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error(error));
-        }
+              staffTableBody.appendChild(row);
+            });
+          })
+          .catch((error) => console.error(error));
+      }
 
-        // Hàm để xoá nhân viên bằng cách gửi yêu cầu DELETE
-        function deleteStaff(id) {
-            if (confirm('Bạn có chắc chắn muốn xoá nhân viên này không?')) {
-                fetch(`/staffdelete/${id}`, {
-                    method: 'GET'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        alert(data);
-                        updateStaffTable(); // Cập nhật bảng sau khi xoá
-                    } else {
-                        alert(data);
-                    }
-                })
-                .catch(error => console.error(error));
-            }
+      // Hàm để xoá nhân viên bằng cách gửi yêu cầu DELETE
+      function deleteStaff(id) {
+        if (confirm('Bạn có chắc chắn muốn xoá nhân viên này không?')) {
+          fetch(`/staffdelete/${id}`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data) {
+                alert(data);
+                updateStaffTable(); // Cập nhật bảng sau khi xoá
+              } else {
+                alert(data);
+              }
+            })
+            .catch((error) => alert(error));
         }
+      }
 
-        // Gọi hàm cập nhật dữ liệu khi trang web được tải
-        updateStaffTable();
+      // Gọi hàm cập nhật dữ liệu khi trang web được tải
+      updateStaffTable();
     </script>
-</body>
+  </body>
 </html>
