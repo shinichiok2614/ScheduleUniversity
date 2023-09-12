@@ -9,6 +9,7 @@ let timetableindexget = (req, res) => {
   const id_lecturer = req.query.id_lecturer;
   const id_staff = req.query.id_staff;
   const room = req.query.room;
+  const department = req.query.department;
   console.log(timestart);
   console.log(timeend);
   console.log(id_lecturer);
@@ -47,6 +48,9 @@ let timetableindexget = (req, res) => {
   }
   if (room) {
     sql += ` AND timetables.room = ${room}`;
+  }
+  if (department) {
+    sql += ` AND lecturers.department = '${department}'`;
   }
 
   sql += ' ORDER BY timetables.timestart ASC;';

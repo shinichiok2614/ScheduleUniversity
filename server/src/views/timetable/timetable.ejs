@@ -250,16 +250,19 @@
         const select = document.querySelector('select[name="id_lecturer"]');
         const select2 = document.querySelector('select[name="id_staff"]');
         const select3 = document.querySelector('select[name="room"]');
+        const select4 = document.querySelector('select[name="department"]');
         const selectedLecturer = select.value;
         const selectedStaff = select2.value;
         const selectedRoom = select3.value;
+        const selectedDepartment = select4.value;
         console.log(selectedLecturer);
         console.log(selectedStaff);
         console.log(selectedRoom);
+        console.log(selectedDepartment);
 
         // Gửi yêu cầu GET với tham số timestart và timeend lên server
         const response = await fetch(
-          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}&room=${selectedRoom}`,
+          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}&room=${selectedRoom}&department=${selectedDepartment}`,
           // `/timetableindexget?timestart=${timestart}&timeend=${timeend}`,
         );
         const data = await response.json();
