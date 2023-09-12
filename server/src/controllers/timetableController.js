@@ -24,7 +24,8 @@ let timetableindexget = (req, res) => {
       timetables.timestart,
       timetables.timeend,
       CONCAT(lecturers.firstname, ' ', lecturers.lastname) AS lecturer,
-      CONCAT(staff.firstname, ' ', staff.lastname) AS staff
+      CONCAT(staff.firstname, ' ', staff.lastname) AS staff,
+      lecturers.department
     FROM
       timetables
     JOIN
