@@ -67,6 +67,7 @@ let createAlecturer = (req, res) => {
     lastName: formData.lastName,
     email: formData.email,
     phone: formData.phone,
+    department: formData.department,
     username: formData.username,
     password: formData.password,
     createdAt: new Date(),
@@ -121,11 +122,11 @@ let deletelecturer = (req, res) => {
 let savelecturer = (req, res) => {
   console.log('savelecturer');
   const lecturerId = req.params.id;
-  const { firstName, lastName, email, phone, username, password } = req.body;
-  console.log(firstName, lastName, email, phone, username, password, lecturerId);
+  const { firstName, lastName, email, phone, username, password, department } = req.body;
+  console.log(firstName, lastName, email, phone, username, password, lecturerId, department);
   const updateQuery =
-    'UPDATE lecturers SET firstName = ?, lastName = ?, username = ?, password=?, email = ?, phone = ? WHERE id = ?';
-  const values = [firstName, lastName, username, password, email, phone, lecturerId];
+    'UPDATE lecturers SET firstName = ?, lastName = ?, username = ?, password=?, email = ?, phone = ?, department= ? WHERE id = ?';
+  const values = [firstName, lastName, username, password, email, phone, department, lecturerId];
   console.log(updateQuery);
   connection.query(updateQuery, values, (err, results) => {
     if (err) {

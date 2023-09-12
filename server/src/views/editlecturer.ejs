@@ -28,6 +28,7 @@
         margin-bottom: 10px;
       }
       input[type='text'],
+      input[type='department'],
       input[type='email'] {
         width: 100%;
         padding: 8px;
@@ -92,6 +93,14 @@
         id="email"
         name="email"
         value="<%= lecturer.email %>"
+        required
+      /><br />
+      <label for="department">Department:</label>
+      <input
+        type="department"
+        id="department"
+        name="department"
+        value="<%= lecturer.department %>"
         required
       /><br />
       <label for="phone">Số điện thoại:</label>

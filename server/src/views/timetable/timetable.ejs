@@ -91,6 +91,20 @@
       </div>
       <div class="form-group">
         <label
+          for="department"
+          class="form-label"
+          >Khoa:</label
+        >
+        <select
+          name="department"
+          class="input-field"
+          id="departmentSelect"
+        >
+          <option value="">Chọn khoa</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label
           for="lecturer"
           class="form-label"
           >Giáo viên:</label
@@ -203,6 +217,28 @@
       }
 
       populateStaff();
+
+      async function populateDepartments() {
+        try {
+          const response = await fetch('/departmentlist'); // Đường dẫn xử lý query
+          const departments = await response.json();
+
+          const select = document.getElementById('departmentSelect');
+          select.innerHTML = '<option value="">Chọn khoa</option>';
+          departments.forEach((department) => {
+            const option = document.createElement('option');
+            // option.value = department.id;
+            option.textContent = department;
+            // option.value=department;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      // Gọi hàm populateDepartments để điền dữ liệu vào dropdown "Khoa" khi trang được tải
+      populateDepartments();
 
       const customButton = document.getElementById('customButton');
 

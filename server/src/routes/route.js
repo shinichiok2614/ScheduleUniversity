@@ -5,6 +5,7 @@ import timetable from '../controllers/timetableController';
 import staffController from '../controllers/staffController';
 import roomController from '../controllers/roomController';
 import emptyroomController from '../controllers/emptyroomController';
+import departmentController from '../controllers/departmentController';
 import verifyToken from '../middleware/auth';
 
 const router = express.Router();
@@ -38,7 +39,7 @@ const initRoute = (app) => {
   router.get('/staffread', staffController.staffread);
 
   router.get('/staffinsertview', staffController.staffinsertview);
-  router.post('/staffinsert',verifyToken, staffController.staffinsert);
+  router.post('/staffinsert', verifyToken, staffController.staffinsert);
 
   router.get('/staffeditview/:id', staffController.staffeditview);
   router.get('/staffeditget/:id', staffController.getStaffById);
@@ -52,6 +53,8 @@ const initRoute = (app) => {
   router.get('/roomdelete/:id', roomController.roomdelete);
 
   router.get('/emptyroom', emptyroomController.emptyroom);
+
+  router.get('/departmentlist', departmentController.departmentlist);
 
   return app.use('/', router);
 };
