@@ -11,62 +11,77 @@
       rel="stylesheet"
       href="/css/styles.css"
     />
+    <style>
+      /* CSS cho hình chữ nhật chứa nút đăng xuất, tiêu đề H1 và các nút */
+      .content-container {
+        background-color: rgba(255, 255, 255, 0.9); /* Màu nền và độ trong suốt */
+        border-radius: 10px; /* Độ cong góc */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Đổ bóng mờ */
+        padding: 10px;
+        margin: 20px auto; /* Căn giữa theo chiều ngang */
+        max-width: 900px; /* Độ rộng tối đa của hình chữ nhật */
+      }
+    </style>
   </head>
   <body>
-    <img
-      src="/image/cover.png"
-      alt=""
-      style="width: 1204px; height: 260px"
-    />
-    <div class="header">
+    <div class="content-container">
+      <img
+        src="/image/cover.png"
+        alt=""
+        style="width: 100%; max-height: 260px"
+      />
+      <div class="header">
+        <br/>
+        <a
+          href="/"
+          class="logout-btn"
+          id="logout-button"
+          >Đăng xuất</a
+        >
+      </div>
+      <h1 class="welcome-text">Chào mừng đến với trang Admin</h1>
+      <a
+        href="/lecturelist"
+        class="btn"
+        >Danh sách giáo viên</a
+      >
+      <a
+        href="/create-lecturer"
+        class="btn"
+        >Thêm giáo viên</a
+      >
+      <a
+        href="/timetablelist"
+        class="btn"
+        >Danh sách lịch học</a
+      >
+      <a
+        href="/create-timetable"
+        class="btn"
+        >Thêm lịch học</a
+      >
+      <br/>
       <a
         href="/"
-        class="logout-btn"
-        id="logout-button"
-        >Đăng xuất</a
+        class="btn"
+        >Xem thời khoá biểu</a
+      >
+      <a
+        href="/staff"
+        class="btn"
+        >Danh sách nhân viên</a
+      >
+      <a
+        href="/staffinsertview"
+        class="btn"
+        >Thêm nhân viên</a
+      >
+      <a
+        href="/room"
+        class="btn"
+        >Danh sách phòng học</a
       >
     </div>
-    <h1 class="welcome-text">Chào mừng đến với trang Admin</h1>
-    <a
-      href="/lecturelist"
-      class="btn"
-      >Danh sách giáo viên</a
-    >
-    <a
-      href="/create-lecturer"
-      class="btn"
-      >Thêm giáo viên</a
-    >
-    <a
-      href="/timetablelist"
-      class="btn"
-      >Danh sách lịch học</a
-    >
-    <a
-      href="/create-timetable"
-      class="btn"
-      >Thêm lịch học</a
-    >
-    <a
-      href="/"
-      class="btn"
-      >Xem thời khoá biểu</a
-    >
-    <a
-      href="/staff"
-      class="btn"
-      >Danh sách nhân viên</a
-    >
-    <a
-      href="/staffinsertview"
-      class="btn"
-      >Thêm nhân viên</a
-    >
-    <a
-      href="/room"
-      class="btn"
-      >Danh sách phòng học</a
-    >
     <script>
       // Get a reference to the logout button
       const logoutButton = document.getElementById('logout-button');
