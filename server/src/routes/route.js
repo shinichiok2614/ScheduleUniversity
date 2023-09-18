@@ -56,6 +56,8 @@ const initRoute = (app) => {
 
   router.get('/departmentlist', departmentController.departmentlist);
 
+  router.get('/classeslist', departmentController.classeslist);
+
   return app.use('/', router);
 };
 export default initRoute;

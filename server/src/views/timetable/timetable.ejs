@@ -105,6 +105,20 @@
       </div>
       <div class="form-group">
         <label
+          for="classes"
+          class="form-label"
+          >Lớp:</label
+        >
+        <select
+          name="classes"
+          class="input-field"
+          id="classesSelect"
+        >
+          <option value="">Chọn lớp</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label
           for="lecturer"
           class="form-label"
           >Giáo viên:</label
@@ -240,6 +254,32 @@
       // Gọi hàm populateDepartments để điền dữ liệu vào dropdown "Khoa" khi trang được tải
       populateDepartments();
 
+      async function populateClasses() {
+        try {
+          const response = await fetch('/classeslist'); // Đường dẫn xử lý query
+          const departments = await response.json();
+          console.log('departments');
+          console.log(departments);
+
+          const select = document.getElementById('classesSelect');
+          select.innerHTML = '<option value="">Chọn lớp</option>';
+          departments.forEach((department) => {
+            console.log('departments');
+            console.log(department);
+            const option = document.createElement('option');
+            // option.value = department.id;
+            option.textContent = department;
+            // option.value=department;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      // Gọi hàm populateDepartments để điền dữ liệu vào dropdown "Khoa" khi trang được tải
+      populateClasses();
+
       const customButton = document.getElementById('customButton');
 
       customButton.addEventListener('click', async () => {
@@ -251,18 +291,21 @@
         const select2 = document.querySelector('select[name="id_staff"]');
         const select3 = document.querySelector('select[name="room"]');
         const select4 = document.querySelector('select[name="department"]');
+        const select5 = document.querySelector('select[name="classes"]');
         const selectedLecturer = select.value;
         const selectedStaff = select2.value;
         const selectedRoom = select3.value;
         const selectedDepartment = select4.value;
+        const selectedClasses = select5.value;
         console.log(selectedLecturer);
         console.log(selectedStaff);
         console.log(selectedRoom);
         console.log(selectedDepartment);
+        console.log(selectedClasses);
 
         // Gửi yêu cầu GET với tham số timestart và timeend lên server
         const response = await fetch(
-          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}&room=${selectedRoom}&department=${selectedDepartment}`,
+          `/timetableindexget?timestart=${timestart}&timeend=${timeend}&id_lecturer=${selectedLecturer}&id_staff=${selectedStaff}&room=${selectedRoom}&department=${selectedDepartment}&classes=${selectedClasses}`,
           // `/timetableindexget?timestart=${timestart}&timeend=${timeend}`,
         );
         const data = await response.json();
